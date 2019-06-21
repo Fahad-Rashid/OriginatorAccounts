@@ -1,0 +1,747 @@
+﻿@using DAL
+    @{
+        tblUser user = (tblUser)Session[WebUtil.CURRENT_USER];
+    }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Steve Dore</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Lucid Bootstrap 4.1.1 Admin Template">
+    <meta name="author" content="WrapTheme, design by: ThemeMakker.com">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="~/Content/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    @*<link rel="stylesheet" href="~/Content/assets/vendor/font-awesome/css/font-awesome.min.css">*@
+    <link rel="stylesheet" href="~/Content/assets/vendor/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/toastr/toastr.min.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/sweetalert/sweetalert.css" />
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/main.css">
+    <link rel="stylesheet" href="~/Content/assets/css/color_skins.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    @RenderSection("mystyles", false)
+    <style>
+        .onoffswitch {
+            position: relative;
+            width: 90px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .onoffswitch-checkbox {
+            display: none;
+        }
+
+        .onoffswitch-label {
+            display: block;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid #007BFF;
+            border-radius: 20px;
+        }
+
+        .onoffswitch-inner {
+            display: block;
+            width: 200%;
+            margin-left: -100%;
+            transition: margin 0.3s ease-in 0s;
+        }
+
+            .onoffswitch-inner:before, .onoffswitch-inner:after {
+                display: block;
+                float: left;
+                width: 50%;
+                height: 30px;
+                padding: 0;
+                line-height: 30px;
+                font-size: 15px;
+                color: white;
+                font-family: Trebuchet, Arial, sans-serif;
+                font-weight: bold;
+                box-sizing: border-box;
+            }
+
+            .onoffswitch-inner:before {
+                content: "ON";
+                padding-left: 14px;
+                background-color: #F68C1F;
+                color: #FFFFFF;
+            }
+
+            .onoffswitch-inner:after {
+                content: "OFF";
+                padding-right: 14px;
+                background-color: #F4F7F6;
+                color: #080101;
+                text-align: right;
+            }
+
+        .onoffswitch-switch {
+            display: block;
+            width: 17px;
+            margin: 6.5px;
+            background: #FFFFFF;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 56px;
+            border: 2px solid #007BFF;
+            border-radius: 20px;
+            transition: all 0.3s ease-in 0s;
+        }
+
+        .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+            margin-left: 0;
+        }
+
+        .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+            right: 0px;
+        }
+    </style>
+</head>
+<body class="theme-orange">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="m-t-30"><img src="https://thememakker.com/templates/lucid/hr/html/assets/images/logo-icon.svg" width="48" height="48" alt="Lucid"></div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <div id="SessionRole" style="display:none">@user.RoleId</div>
+    @*<div id="divLoader" style="display:none;">
+            <img src="~/Content/assets/images/loader.png" />
+        </div>*@
+
+
+    <!--Bootstrap Model-->
+    <div class="modal animated zoomIn" id="myDialog" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document" id="Css">
+            <div class="modal-content" id="ModalBody">
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Overlay For Sidebars -->
+    <div id="wrapper">
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-btn">
+                    <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
+                </div>
+                <div class="navbar-brand">
+                    @*<a href="index-2.html"><img src="https://thememakker.com/templates/lucid/hr/html/assets/images/logo.svg" alt="Lucid Logo" class="img-responsive logo"></a>*@
+                    <h3>Steve<span style="color:#3aa3cc">Dore</span></h3>
+                </div>
+
+                <div class="navbar-right">
+
+                    <form id="navbar-search" class="navbar-form search-form">
+                        <input value="" class="form-control" placeholder="Search here..." type="text">
+                        <button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
+                    </form>
+
+
+                    <div id="navbar-menu">
+                        <ul class="nav navbar-nav">
+                            @*<li><a href="app-events.html" class="icon-menu d-none d-sm-block d-md-none d-lg-block"><i class="icon-calendar"></i></a></li>*@
+                            @*<li><a href="app-chat.html" class="icon-menu d-none d-sm-block"><i class="icon-bubbles"></i></a></li>*@
+                            @*<li><a href="app-inbox.html" class="icon-menu d-none d-sm-block"><i class="icon-envelope"></i><span class="notification-dot"></span></a></li>*@
+
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle icon-menu NotificationsDropdown" data-toggle="dropdown">
+                                    <i class="icon-bell"></i>
+                                    <span @*class="notification-dot"*@ id="SetCountOfNotification"></span>
+                                </a>
+                                <ul class="dropdown-menu notifications animated shake" id="FitNotification">
+                                    @*<li>
+                                            <a href="javascript:void(0);">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <i class="icon-info text-warning"></i>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <p class="text">Campaign <strong>Holiday Sale</strong> is nearly reach budget limit.</p>
+                                                        <span class="timestamp">10:00 AM Today</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <i class="icon-like text-success"></i>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <p class="text">Your New Campaign <strong>Holiday Sale</strong> is approved.</p>
+                                                        <span class="timestamp">11:30 AM Today</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <i class="icon-pie-chart text-info"></i>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <p class="text">Website visits from Twitter is 27% higher than last week.</p>
+                                                        <span class="timestamp">04:00 PM Today</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <i class="icon-info text-danger"></i>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <p class="text">Error on website analytics configurations</p>
+                                                        <span class="timestamp">Yesterday</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>*@
+                                </ul>
+                            </li>
+                            @*<li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle icon-menu" data-toggle="dropdown"><i class="icon-equalizer"></i></a>
+                                    <ul class="dropdown-menu user-menu menu-icon animated bounceIn">
+                                        <li class="menu-heading">ACCOUNT SETTINGS</li>
+                                        <li><a href="javascript:void(0);"><i class="icon-note"></i> <span>Basic</span></a></li>
+                                        <li><a href="javascript:void(0);"><i class="icon-equalizer"></i> <span>Preferences</span></a></li>
+                                        <li><a href="javascript:void(0);"><i class="icon-lock"></i> <span>Privacy</span></a></li>
+                                        <li><a href="javascript:void(0);"><i class="icon-bell"></i> <span>Notifications</span></a></li>
+                                        <li class="menu-heading">BILLING</li>
+                                        <li><a href="javascript:void(0);"><i class="icon-credit-card"></i> <span>Payments</span></a></li>
+                                        <li><a href="javascript:void(0);"><i class="icon-printer"></i> <span>Invoices</span></a></li>
+                                        <li><a href="javascript:void(0);"><i class="icon-refresh"></i> <span>Renewals</span></a></li>
+                                    </ul>
+                                </li>*@
+
+                            <li><a class="icon-menu" href="javascript:void(0);"><i class="icon-settings"></i></a></li>
+                            <li id="Logout"><a href="/user/logout" class="icon-menu"><i class="icon-power"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="left-sidebar" class="sidebar">
+            <div class="sidebar-scroll">
+                <div class="user-account">
+                    <img src="~/Content/assets/images/download.png" class="rounded-circle user-photo" alt="User Profile Picture">
+                    <div class="dropdown">
+                        <span>Welcome</span>
+                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>@user.UserName</strong></a>
+                        <ul class="dropdown-menu dropdown-menu-right account animated flipInY">
+                            <li><a href="#" data-toggle="modal" data-target="#" id="EditProfile"><i class="icon-user"></i>Edit Profile</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#"><i class="icon-user"></i>Descipline Status</a></li>
+                            <li><a href="#"><i class="icon-envelope-open"></i>Messages</a></li>
+                            <li><a href="#"><i class="icon-settings"></i>Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="icon-power"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                            <h6>8</h6>
+                            <small>Pending</small>
+                        </div>
+                        <div class="col-4">
+                            <h6>65</h6>
+                            <small>Filled</small>
+                        </div>
+                        <div class="col-4">
+                            <h6>73</h6>
+                            <small>Jobs</small>
+                        </div>
+                        @*<button type="button" class="btn btn-primary btn-toastr" data-context="info" data-message="This is general theme info" data-position="bottom-right">General Info</button>
+                            <button type="button" class="btn btn-success btn-toastr" data-context="success" data-message="This is success info" data-position="bottom-right">Success Info</button>
+                            <button type="button" class="btn btn-warning btn-toastr" data-context="warning" data-message="This is warning info" data-position="bottom-right">Warning Info</button>
+                            <button type="button" class="btn btn-danger btn-toastr" data-context="error" data-message="This is error info" data-position="bottom-right">Error Info</button>
+                            <button type="button" onclick="showMessage('error','Message  ae mazak ae','bottom-right')"  class="btn btn-danger">Error Info</button>*@
+
+                    </div>
+                </div>
+
+                @if (user.RoleId == 1) //Admin
+                {
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#hr_menu">Admin</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content p-l-0 p-r-0">
+                        <div class="tab-pane animated fadeIn active" id="hr_menu">
+                            <nav class="sidebar-nav">
+                                <ul class="main-menu metismenu">
+
+                                    <li>
+                                        <a href="#Employees" class="has-arrow"><i class="icon-users"></i><span>General</span></a>
+                                        <ul>
+                                            <li><a href="/account/manage" id="ManageAccount"><i class="icon-user"></i>Manage Account</a></li>
+                                            <li><a href="/account/manage" id="ManageSubAccount"><i class="icon-user"></i>Manage SubAccount</a></li>
+                                            <li><a href="/gang/gang" id="ManageUser"><i class="icon-globe"></i>Manage User</a></li>
+                                            <li><a href="/Reason/Manage" id="ManageCompany"><i class="icon-globe"></i>Manage Company</a></li>
+                                            <li><a href="/skill/manage" id="ManageAccountSubType"><i class="icon-badge"></i>Manage Account SubType</a></li>
+                                            <li><a href="/skill/manage" id="ManageUserSubAccounts"><i class="icon-badge"></i>Manage User SubAccounts</a></li>
+                                            <li><a href="/skill/manage" id="ManageTransaction"><i class="icon-badge"></i>Manage Transaction</a></li>
+
+                                        </ul>
+                                    
+                                    </li>
+
+                                    </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                }
+                else if (user.RoleId == 2) //Gang Admin
+                {
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#hr_menu">Gang Admin</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content p-l-0 p-r-0">
+                        <div class="tab-pane animated fadeIn active" id="hr_menu">
+                            <nav class="sidebar-nav">
+                                <ul class="main-menu metismenu">
+                                    <li>
+                                        <a href="#FillinRequestJobs" class="has-arrow"><i class="icon-users"></i><span>Fillin Request</span></a>
+
+                                        <ul>
+                                            <li><a href="/account/manage" id="ManageAccount"><i class="icon-user"></i>Manage Account</a></li>
+                                            <li><a href="/account/manage" id="ManageSubAccount"><i class="icon-user"></i>Manage SubAccount</a></li>
+                                            <li><a href="/skill/manage" id="ManageAccountSubType"><i class="icon-badge"></i>Manage Account SubType</a></li>
+                                            
+                                            <li>
+                                                <a href="#" id="MyDisciplineNotices"><i class="icon-badge"></i>Disciplinary Notices</a>
+                                            </li>
+                                            @*<li><a href="/gang/gang" id="Gang"><i class="icon-globe"></i>Manage Gangs</a></li>*@
+
+                                        </ul>
+                                    </li>
+
+                                    <li><a href="/gang/gangview" id="GangView"><i class="icon-badge"></i>View My Gang</a></li>
+                                    <li><a href="#" id="ShapeUp"><i class="icon-badge"></i>ShapeUp</a></li>
+
+                                    <li><a href="#" id="ViewRule"><i class="icon-badge"></i>View Rule</a></li>
+
+
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                }
+                else if (user.RoleId == 3) //Job Requestor
+                {
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#hr_menu">Job Requestor</a></li>
+
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content p-l-0 p-r-0">
+                        <div class="tab-pane animated fadeIn active" id="hr_menu">
+                            <nav class="sidebar-nav">
+                                <ul class="main-menu metismenu">
+                                    <li><a href="#" id="RespondToDispatchRequest"><i class="icon-badge"></i>Respond To Dispatch Request</a></li>
+                                    <li><a href="#" id="MyJobs"><i class="icon-badge"></i>MyJobs</a></li>
+                                    <li>
+                                        <a href="#" id="FillinRequestJobs"><i class="icon-badge"></i>Fillin Request</a>
+                                        <ul>
+                                            <li>
+                                                <a href="#" id="FillinRequestJobsbygang"><i class="icon-badge"></i>My Gang Jobs</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#" id="FillinRequestJobsbySkills"><i class="icon-badge"></i>Other Gangs Jobs</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li><a href="#" id="ViewRule"><i class="icon-badge"></i>View Rule</a></li>
+                                    <li><a href="#" id="ManageJobsByJobRequestor"><i class="icon-badge"></i>Manage Jobs</a></li>
+
+                                    @*<li><a href="/gang/gangview" id="GangView"><i class="icon-badge"></i>View My Gang</a></li>
+                                        <li><a href="/ScheduleMeeting/ViewMeetings" id="ViewMeetings"><i class="icon-badge"></i>View Meetings</a></li>*@
+
+
+
+
+
+
+
+                                    @*<li>
+                                            <a href="#Employees" class="has-arrow"><i class="icon-users"></i><span>Employees</span></a>
+                                            <ul>
+                                                <li><a href="emp-all.html">All Employees</a></li>
+                                                <li><a href="emp-leave.html">Leave Requests</a></li>
+                                                <li><a href="emp-attendance.html">Attendance</a></li>
+                                                <li><a href="emp-departments.html">Departments</a></li>
+                                            </ul>
+                                        </li>*@
+
+
+
+
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                }
+                else if (user.RoleId == 4) //Employee
+                {
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#hr_menu">Association</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content p-l-0 p-r-0">
+                        <div class="tab-pane animated fadeIn active" id="hr_menu">
+                            <nav class="sidebar-nav">
+                                <ul class="main-menu metismenu">
+
+                                    <li><a href="#" id="ManageTransaction"><i class="icon-badge"></i>Manage Transaction</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                }
+                else //Worker
+                {
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#hr_menu">Worker</a></li>
+
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content p-l-0 p-r-0">
+                        <div class="tab-pane animated fadeIn active" id="hr_menu">
+                            <nav class="sidebar-nav">
+                                <ul class="main-menu metismenu">
+                                    <li><a href="#" id="MyJobs"><i class="icon-badge"></i>MyJobs</a></li>
+                                    <li><a href="#" id="ViewRule"><i class="icon-badge"></i>View Rule</a></li>
+
+                                    <li><a href="#" id="RespondToDispatchRequest"><i class="icon-badge"></i>Respond To Dispatch Request</a></li>
+
+
+                                    @*<li>
+                                            <a href="#Employees" class="has-arrow"><i class="icon-users"></i><span>Employees</span></a>
+                                            <ul>
+                                                <li><a href="emp-all.html">All Employees</a></li>
+                                                <li><a href="emp-leave.html">Leave Requests</a></li>
+                                                <li><a href="emp-attendance.html">Attendance</a></li>
+                                                <li><a href="emp-departments.html">Departments</a></li>
+                                            </ul>
+                                        </li>*@
+
+
+
+
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                }
+
+
+            </div>
+        </div>
+        <style>
+            .ajax_loader {
+                position: fixed;
+                padding: 0;
+                margin: 0;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(255,255,255,0.5);
+                z-index: 999;
+            }
+
+                .ajax_loader i {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                }
+
+            .loaderjif {
+                display: none;
+            }
+
+            body {
+                position: relative;
+            }
+        </style>
+
+        <div class="ajax_loader loaderjif">
+            <i><img src="~/Content/assets/images/loader.gif" /></i>
+        </div>
+
+
+
+        <div id="PutData">
+            @RenderBody()
+        </div>
+    </div>
+
+
+
+    @*<div class="modal animated zoomIn" id="Setting" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="title" id="defaultModalLabel">Edit profile</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row clearfix">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="First Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Phone">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Email">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+
+
+
+    <script src="~/Content/assets/js/jquery-1.9.1.min.js"></script>
+    <script src="~/Content/assets/bundles/libscripts.bundle.js"></script>
+    <script src="~/Content/assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="~/Content/assets/vendor/toastr/toastr.js"></script>
+    <script src="~/Content/assets/bundles/chartist.bundle.js"></script>
+    <script src="~/Content/assets/bundles/knob.bundle.js"></script> <!-- Jquery Knob-->
+    <script src="~/Content/assets/bundles/mainscripts.bundle.js"></script>
+    <script src="~/Content/assets/js/index.js"></script>
+    <script src="~/Content/assets/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="~/Content/assets/js/pages/ui/dialogs.js"></script>
+    <script src="~/Content/assets/vendor/jquery-validation/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    @*<script src="~/Content/assets/js/bootstrap.min.js"></script>*@
+
+
+
+
+    @RenderSection("myScript", false)
+
+    <script type="text/javascript">
+
+        var RoleId = $("#SessionRole").text().trim();
+
+        $(document).ready(function () {
+            $(".loaderjif").show();
+            if (RoleId == 1) {
+                $.ajax({
+                    url: "/User/Manage"
+                }).done(function (result) {
+                    $(".loaderjif").hide();
+                        $("#PutData").html(result);
+                    }).fail(function (res) { alert(JSON.stringify(res)); })
+            } else if (RoleId == 2) {
+                $.ajax({
+                    url: "/Account/Manage"
+                }).done(function (result) {
+                    $(".loaderjif").hide();
+                    $("#PutData").html(result);
+                })
+            } else if (RoleId == 3) {
+                $.ajax({
+                    url: "/User/Manage"
+                }).done(function (result) {
+                    $(".loaderjif").hide();
+                    $("#PutData").html(result);
+                })
+            } else if (RoleId == 4) {
+                $.ajax({
+                    url: "/Transaction/AddTransaction"
+                }).done(function (result) {
+                    $(".loaderjif").hide();
+                    $("#PutData").html(result);
+                })
+            } 
+        });
+
+
+        function CloseModal() {
+            $("#myDialog").modal('toggle');
+        }
+
+        
+        $("#ManageUser").click(function (event) {
+            event.preventDefault();
+            $(".loaderjif").show();
+            $.ajax(
+                {
+                    url: "/User/Manage"
+                }).done(function (result) {
+                    $(".loaderjif").hide();
+                    $("#PutData").html(result);
+                });
+        });
+        
+        $("#ManageAccount").click(function (event) {
+            event.preventDefault();
+            $(".loaderjif").show();
+            $.ajax({
+                url: "/Account/Manage"
+            }).done(function (result) {
+                $(".loaderjif").hide();
+                $("#PutData").html(result);
+            });
+        });
+
+        $("#ManageSubAccount").click(function (event) {
+            event.preventDefault();
+            $(".loaderjif").show();
+            $.ajax({
+                url: "/SubAccount/Manage"
+            }).done(function (result) {
+                $(".loaderjif").hide();
+                $("#PutData").html(result);
+            });
+        });
+        $("#ManageCompany").click(function (event) {
+            event.preventDefault();
+            $(".loaderjif").show();
+            $.ajax({
+                url: "/Company/Manage"
+            }).done(function (result) {
+                $(".loaderjif").hide();
+                $("#PutData").html(result);
+            });
+        });
+        $("#ManageAccountSubType").click(function (event) {
+            event.preventDefault();
+            $(".loaderjif").show();
+            $.ajax({
+                url: "/AccountSubType/Manage"
+            }).done(function (result) {
+                $(".loaderjif").hide();
+                $("#PutData").html(result);
+            });
+        });
+        
+        $("#ManageUserSubAccounts").click(function (event) {
+            event.preventDefault();
+            $(".loaderjif").show();
+            $.ajax({
+                url: "/UserAccounts/Manage"
+            }).done(function (result) {
+                $(".loaderjif").hide();
+                $("#PutData").html(result);
+            });
+        });
+        $("#ManageTransaction").click(function (event) {
+            event.preventDefault();
+            $(".loaderjif").show();
+            $.ajax({
+                url: "/Transaction/AddTransaction"
+            }).done(function (result) {
+                $(".loaderjif").hide();
+                $("#PutData").html(result);
+            });
+        });
+        
+
+        function showMessage(type, message, position, ControllerName, ActionName) {
+            $context = type;
+            $message = message;
+            $position = position;
+            $positionClass = 'toast-' + $position;
+            toastr.remove();
+            toastr[$context]($message, '', {
+                positionClass: $positionClass
+            });
+            $.ajax({
+                url: '/' + ControllerName + '/' + ActionName + ''
+            }).done(function (result) {
+                $("#PutData").html(result);
+            })
+        }
+        function showMessageClient(type, message, position) {
+            $context = type;
+            $message = message;
+            $position = position;
+            $positionClass = 'toast-' + $position;
+            toastr.remove();
+            toastr[$context]($message, '', {
+                positionClass: $positionClass
+            });
+        }
+
+
+        function showMessageClosePopup(type, message, position, ControllerName, ActionName) {
+            $context = type;
+            $message = message;
+            $position = position;
+            $positionClass = 'toast-' + $position;
+            toastr.remove();
+            toastr[$context]($message, '', {
+                positionClass: $positionClass
+            });
+            $.ajax({
+                url: '/' + ControllerName + '/' + ActionName + ''
+            }).done(function (result) {
+                $("#PutData").html(result);
+            })
+            CloseModal();
+        }
+
+
+
+
+    </script>
+
+</body>
+</html>

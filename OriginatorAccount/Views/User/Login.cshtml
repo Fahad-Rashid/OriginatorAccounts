@@ -1,0 +1,148 @@
+﻿@using OriginatorAccount.Models.User
+@model LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>:: Login :: Home</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Lucid Bootstrap 4.1.1 Admin Template">
+    <meta name="author" content="WrapTheme, design by: ThemeMakker.com">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="~/Content/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    @*<link rel="stylesheet" href="~/Content/assets/vendor/font-awesome/css/font-awesome.min.css">*@
+    <link rel="stylesheet" href="~/Content/assets/vendor/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/toastr/toastr.min.css">
+    <link rel="stylesheet" href="~/Content/assets/vendor/sweetalert/sweetalert.css" />
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/main.css">
+    <link rel="stylesheet" href="~/Content/assets/css/color_skins.css">
+</head>
+<body class="theme-orange">
+
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="m-t-30"><img src="https://thememakker.com/templates/lucid/hr/html/assets/images/logo-icon.svg" width="48" height="48" alt="Lucid"></div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Login", "User", FormMethod.Post, new { id = "LoginForm" }))
+    {
+        <div id="wrapper">
+            <div class="vertical-align-wrap">
+                <div class="vertical-align-middle auth-main">
+                    <div class="auth-box">
+                        <div class="top">
+                            @*<img src="https://thememakker.com/templates/lucid/hr/html/assets/images/logo-white.svg" alt="Lucid">*@
+                            <h3 style="color:whitesmoke">Steve<span style="color:#3aa3cc">Dore</span></h3>
+                        </div>
+                        <div class="card">
+                            <div class="header">
+                                <p class="lead">Login to your account</p>
+                            </div>
+                            <div class="body">
+                                <form class="form-auth-small" action="https://thememakker.com/templates/lucid/hr/html/light/index.html">
+                                    <div class="form-group">
+                                        <label for="signin-email" class="control-label sr-only">Email</label>
+                                        @Html.TextBoxFor(m => m.LoginId, new { placeholder = "Email", @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="signin-password" class="control-label sr-only">Password</label>
+                                        @Html.TextBoxFor(m => m.Password, new { placeholder = "Login Id", @class = "form-control", type = "Password" })
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        @Html.CheckBoxFor(m => m.RememberMe) Remember Me
+                                        <label class="fancy-checkbox element-left">
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block" id="Login">LOGIN</button>
+                                    <div class="bottom">
+                                        <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a href="page-forgot-password.html">Forgot password?</a></span>
+                                        <span>Don't have an account? <a href="page-register.html">Register</a></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+    <script src="~/Content/assets/js/jquery-1.9.1.min.js"></script>
+    <script src="~/Content/assets/bundles/libscripts.bundle.js"></script>
+    <script src="~/Content/assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="~/Content/assets/vendor/toastr/toastr.js"></script>
+    <script src="~/Content/assets/bundles/chartist.bundle.js"></script>
+    <script src="~/Content/assets/bundles/knob.bundle.js"></script>
+    <script src="~/Content/assets/bundles/mainscripts.bundle.js"></script>
+    <script src="~/Content/assets/js/index.js"></script>
+    <script src="~/Content/assets/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="~/Content/assets/js/pages/ui/dialogs.js"></script>
+
+
+    <script type="text/javascript">
+
+
+
+
+
+
+    @*function Login() {
+        event.preventDefault();
+        var UserName = $("#signin-email").val();
+        var Password = $("#signin-password").val();
+        alert(UserName);
+        alert(Password);
+        var id = 1;
+
+        $.ajax({
+    type: "POST",
+    url: '@Url.Action("Test", "User")',
+    contentType: "application/json; charset=utf-8",
+    data: { id: 1 },
+    dataType: "json",
+        success: function () { alert('Success'); },
+        error: function () { alert('Error'); }
+});
+
+
+    }*@
+
+
+        //function Login() {
+        //    var id = 1;
+        //    var UserName = $("#signin-email").val();
+        //    var Password = $("#signin-password").val();
+        //    alert(UserName);
+        //    alert(Password);
+        //    $.ajax(
+        //        {
+        //            url: "/user/test/" + id
+        //        });
+        //};
+
+
+
+
+
+
+    </script>
+
+
+
+</body>
+</html>

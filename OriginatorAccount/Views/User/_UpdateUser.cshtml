@@ -1,0 +1,77 @@
+﻿@using OriginatorAccount.Models.User
+@model VMUser
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"
+        type="text/javascript">
+</script>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"
+        type="text/javascript">
+</script>
+
+@using (Ajax.BeginForm("UpdateUser", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "PutData", OnComplete = "CloseModal" }))
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="title" id="defaultModalLabel">Add User</h6>
+        </div>
+        <div class="modal-body">
+            <div class="row clearfix">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.UserName, Model.UserName ,new { @class = "form-control", placeholder = "Name" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Password, Model.Password ,new { @class = "form-control", placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.PhoneNo, Model.PhoneNo ,new { @class = "form-control", placeholder = "Phone" })
+                        @Html.ValidationMessageFor(m => m.PhoneNo, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Email, Model.Email ,new { @class = "form-control", placeholder = "Email" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Address, Model.Address ,new { @class = "form-control", placeholder = "Address" })
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.CNIC, Model.CNIC ,new { @class = "form-control", placeholder = "CNIC" })
+                        @Html.ValidationMessageFor(m => m.CNIC, "", new { @style = "color:red" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.RoleId, (IEnumerable<SelectListItem>)ViewBag.Roles, "- Select Role -", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.RoleId, "", new { @style = "color:red" })
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.Companies, "- Select Company -", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.CompanyId, "", new { @style = "color:red" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">UPDATE</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+        </div>
+    </div>
+}
+

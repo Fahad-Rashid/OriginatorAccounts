@@ -1,0 +1,71 @@
+﻿@using OriginatorAccount.Models.SubAccount
+@model VMSubAccount
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"
+        type="text/javascript">
+</script>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"
+        type="text/javascript">
+</script>
+
+@using (Ajax.BeginForm("AddSubAccount", "SubAccount", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "PutData", OnComplete = "CloseModal" }))
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="title" id="defaultModalLabel">Add User</h6>
+        </div>
+        <div class="modal-body">
+            <div class="row clearfix">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.SubAccountName, new { @class = "form-control", placeholder = "Sub Account Name" })
+                        @Html.ValidationMessageFor(m => m.SubAccountName, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", placeholder = "Amount", type = "number" })
+                        @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Description", rows = "5" })
+                        @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control", placeholder = "Account Number", type = "number" })
+                        @Html.ValidationMessageFor(m => m.AccountNumber, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.AccountId, (IEnumerable<SelectListItem>)ViewBag.Accounts, "- Select Account -", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.AccountId, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.Companies, "- Select Company -", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.CompanyId, "", new { @style = "color:red" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.TypeId, (IEnumerable<SelectListItem>)ViewBag.SubTypes, "- Select Type -", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.TypeId, "", new { @style = "color:red" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">ADD</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+        </div>
+    </div>
+}
+
+

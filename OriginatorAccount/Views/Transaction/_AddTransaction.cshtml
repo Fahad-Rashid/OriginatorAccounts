@@ -1,0 +1,65 @@
+﻿@using OriginatorAccount.Models.Transaction
+@model VMTransaction
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript">
+</script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript">
+</script>
+
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Transaction List</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item">Transaction</li>
+                        <li class="breadcrumb-item active">Transaction List</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @using (Ajax.BeginForm("AddTransaction", "Transaction", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "PutData" }))
+        {
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 class="title" id="defaultModalLabel">Add Transaction</h6>
+    </div>
+    <div class="modal-body">
+        <div class="row clearfix">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.DropDownListFor(m => m.DefaultFrom, (IEnumerable<SelectListItem>)ViewBag.FromAssociated, "- Select From Associate -", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.DefaultFrom, "", new { @style = "color:red" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.DropDownListFor(m => m.DefaultTo, (IEnumerable<SelectListItem>)ViewBag.ToAssociated, "- Select To Associate -", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.DefaultTo, "", new { @style = "color:red" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", placeholder = "Amount" })
+                    @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color:red" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Description" })
+                    @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color:red" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">ADD </button>
+    </div>
+</div>
+}
+
+
+    </div>
+</div>
+
