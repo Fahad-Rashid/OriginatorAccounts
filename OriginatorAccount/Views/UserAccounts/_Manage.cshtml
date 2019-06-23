@@ -204,6 +204,7 @@
 
                 if (flag) {
                     arr.splice(i, 1);
+                    arr.push('DF' + "|" + DefaultFromAccountNumber);
                 } else {
                     arr.push('DF' + "|" + DefaultFromAccountNumber);
                 }
@@ -239,6 +240,8 @@
                     
                 if (flag) {
                     arr.splice(i, 1);
+                    arr.push('DT' + "|" + DefaultToAccountNumber);
+
                 } else {
                     arr.push('DT' + "|" + DefaultToAccountNumber);
                 }
@@ -253,10 +256,92 @@
 
 
         $('input.FromAssociated').on('change', function () {
+            var arr = empIds;
             $(this).closest('tr').find('td:eq(1) input').prop('checked', false);
+            var FromAssociatedAccountNumber = $(this).closest('tr').find('td').eq(0).text().trim();
+            var flag = false;
+            var EqualToThis = ('DF' + "|" + FromAssociatedAccountNumber);
+            var i = 0;
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i] == EqualToThis) {
+                    flag = true;
+                    break
+                }
+                else {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                arr.splice(i, 1);
+            } else {
+                arr.push('FA' + "|" + FromAssociatedAccountNumber);
+            }
+
+
+            if (flag) {
+                var slag = false;
+                var EqualTo = ('FA' + "|" + FromAssociatedAccountNumber);
+                var j = 0;
+                for (j = 0; j < arr.length; j++) {
+                    if (arr[j] == EqualTo) {
+                        slag = true;
+                        break
+                    }
+                    else {
+                        slag = false;
+                    }
+                }
+            }
+            if (slag) {
+                arr.splice(j, 1);
+            }
+
+            arr = empIds;
+            alert(empIds);
         });
+
+
         $('input.ToAssociated').on('change', function () {
+            var arr = empIds;
             $(this).closest('tr').find('td:eq(2) input').prop('checked', false);
+            var ToAssociatedAccountNumber = $(this).closest('tr').find('td').eq(0).text().trim();
+            var flag = false;
+            var EqualToThis = ('DT' + "|" + ToAssociatedAccountNumber);
+            var i = 0;
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i] == EqualToThis) {
+                    flag = true;
+                    break
+                }
+                else {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                arr.splice(i, 1);
+            } else {
+                arr.push('TA' + "|" + ToAssociatedAccountNumber);
+            }
+
+            if (flag) {
+                var slag = false;
+                var EqualTo = ('TA' + "|" + ToAssociatedAccountNumber);
+                var j = 0;
+                for (j = 0; j < arr.length; j++) {
+                    if (arr[j] == EqualTo) {
+                        slag = true;
+                        break
+                    }
+                    else {
+                        slag = false;
+                    }
+                }
+            }
+            if (slag) {
+                arr.splice(j, 1);
+            }
+            arr = empIds;
+            alert(empIds);
         });
 
 
