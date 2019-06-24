@@ -48,7 +48,7 @@ $(function() {
     // notification popup
     toastr.options.closeButton = true;
     toastr.options.positionClass = 'toast-bottom-right';    
-    toastr['success']('Hello, welcome to Lucid, a unique admin Template.');
+    toastr['success']('Hello, welcome to Originator Accounts, a unique Accounting Template.');
 });
 
 // top products

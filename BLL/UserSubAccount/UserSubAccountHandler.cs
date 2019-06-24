@@ -56,17 +56,24 @@ namespace BLL.UserSubAccount
                 string FromAssociatedId = ',' + FinalFromAssociatedAccounts + ',';
 
 
-
-
                 tblUserSubAccount found = (from data in db.tblUserSubAccounts
                                          where data.UserId == UserId
                                          select data).FirstOrDefault();
-                if (!string.IsNullOrWhiteSpace(GetDefaultToAccount.ToString())) found.DefaultToId = GetDefaultToAccount;
-                if (!string.IsNullOrWhiteSpace(GetDefaultFromAccount.ToString())) found.DefaultFromId = GetDefaultFromAccount;
-                if (!string.IsNullOrWhiteSpace(ToAssociatedId)) found.ToAssociatedId = ToAssociatedId;
-                if (!string.IsNullOrWhiteSpace(FromAssociatedId)) found.FromAssociatedId = FromAssociatedId;
-                if (CurrentUser > 0) found.ModifiedBy = CurrentUser;
-                found.ModifiedDate = DateTime.Now;
+                if (found != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(GetDefaultToAccount.ToString())) found.DefaultToId = GetDefaultToAccount;
+                    if (!string.IsNullOrWhiteSpace(GetDefaultFromAccount.ToString())) found.DefaultFromId = GetDefaultFromAccount;
+                    if (!string.IsNullOrWhiteSpace(ToAssociatedId)) found.ToAssociatedId = ToAssociatedId;
+                    if (!string.IsNullOrWhiteSpace(FromAssociatedId)) found.FromAssociatedId = FromAssociatedId;
+                    if (CurrentUser > 0) found.ModifiedBy = CurrentUser;
+                    found.ModifiedDate = DateTime.Now;
+                }
+                else
+                {
+                    tblUserSubAccount table = new tblUserSubAccount { UserId = UserId, DefaultToId = GetDefaultToAccount, DefaultFromId = GetDefaultFromAccount, ToAssociatedId = ToAssociatedId, FromAssociatedId = FromAssociatedId, CreatedBy = CurrentUser, CreatedDate = DateTime.Now };
+                    db.tblUserSubAccounts.Add(table);
+                }
+                
 
                 db.SaveChanges();
             }
