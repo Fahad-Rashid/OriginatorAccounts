@@ -9,6 +9,5 @@ namespace OriginatorAccount.Models.UserSubAccount
     {
         public IEnumerable<VMUserSubAccount> UserSubAccounts { get; set; }
         public long UserId { get; set; }
-
     }
 }

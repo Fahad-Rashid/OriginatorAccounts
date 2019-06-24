@@ -18,49 +18,56 @@ namespace BLL.UserSubAccount
             }
         }
 
-        public void UpdateUserSubAccount(long ModifiedBy ,long UserId ,long DefaultToId, long DefaultFromId)
+        public void UpdateUserSubAccount(long UserId, string DTaccount, string DFaccount, List<string> TAaccount, List<string> FAaccount, long CurrentUser)
         {
             using (OriginatorEntities db = new OriginatorEntities())
             {
+                long GetDefaultToAccount = (from data in db.tblSubAccounts
+                                            where data.AccountNumber == DTaccount
+                                            select data.Id).FirstOrDefault();
+                long GetDefaultFromAccount = (from data in db.tblSubAccounts
+                                            where data.AccountNumber == DFaccount
+                                              select data.Id).FirstOrDefault();
+                List<long> IdsOfToAssociatedAccounts = new List<long>();
+                List<long> IdsOfFromAssociatedAccounts = new List<long>();
 
-                //List<tblUserSubAccount> found = (from data in db.tblUserSubAccounts
-                //                                 where data.UserId == UserId
-                //                                 select data).ToList();
-                //foreach (var item in found)
-                //{
-                //    item.DefaultTo = false;
-                //    item.DefaultFrom = false;
-                //    item.ModifiedBy = ModifiedBy;
-                //    item.ModifiedDate = DateTime.Now;
-                //}
+                foreach (var item in TAaccount)
+                {
+                    long Id = (from data in db.tblSubAccounts
+                               where data.AccountNumber == item
+                               select data.Id).FirstOrDefault();
+                    IdsOfToAssociatedAccounts.Add(Id);
+                }
+                foreach (var a in FAaccount)
+                {
+                    long Id = (from data in db.tblSubAccounts
+                               where data.AccountNumber == a
+                               select data.Id).FirstOrDefault();
+                    IdsOfFromAssociatedAccounts.Add(Id);
+                }
 
-                //tblUserSubAccount foundDefaultTo = (from data in db.tblUserSubAccounts
-                //                                 where data.UserId == UserId && data.SubTypeId == DefaultToId
-                //                                 select data).FirstOrDefault();
-                //if(foundDefaultTo != null)
-                //{
-                //    foundDefaultTo.DefaultTo = true;
-                //    foundDefaultTo.ModifiedBy = ModifiedBy;
-                //    foundDefaultTo.ModifiedDate = DateTime.Now;
-                //}
-                //else
-                //{
+                List<long> NewIdsOfToAssociated = IdsOfToAssociatedAccounts.Distinct().ToList();
+                List<long> NewIdsOfFromAssociated = IdsOfFromAssociatedAccounts.Distinct().ToList();
+                
+                string FinalToAssociatedAccounts = string.Join(",", NewIdsOfToAssociated.Select(n => n.ToString()).ToArray());
+                string FinalFromAssociatedAccounts = string.Join(",", NewIdsOfFromAssociated.Select(n => n.ToString()).ToArray());
 
-                //}
-
+                string ToAssociatedId = ',' + FinalToAssociatedAccounts + ',';
+                string FromAssociatedId = ',' + FinalFromAssociatedAccounts + ',';
 
 
 
-                //foreach (var table in tablelist)
-                //{
-                //    tblUserSubAccount found = db.tblUserSubAccounts.Find(table.Id);
-                //    if (!string.IsNullOrWhiteSpace(table.AccountName)) found.AccountName = table.AccountName;
-                //    if (!string.IsNullOrWhiteSpace(table.AccountNumber)) found.AccountNumber = table.AccountNumber;
-                //    if (!string.IsNullOrWhiteSpace(table.DefaultFrom.ToString())) found.DefaultFrom = table.DefaultFrom;
-                //    if (!string.IsNullOrWhiteSpace(table.DefaultTo.ToString())) found.DefaultTo = table.DefaultTo;
-                //    if (!string.IsNullOrWhiteSpace(table.FromAssociated.ToString())) found.FromAssociated = table.FromAssociated;
-                //    if (!string.IsNullOrWhiteSpace(table.ToAssociated.ToString())) found.ToAssociated = table.ToAssociated;
-                //}
+
+                tblUserSubAccount found = (from data in db.tblUserSubAccounts
+                                         where data.UserId == UserId
+                                         select data).FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(GetDefaultToAccount.ToString())) found.DefaultToId = GetDefaultToAccount;
+                if (!string.IsNullOrWhiteSpace(GetDefaultFromAccount.ToString())) found.DefaultFromId = GetDefaultFromAccount;
+                if (!string.IsNullOrWhiteSpace(ToAssociatedId)) found.ToAssociatedId = ToAssociatedId;
+                if (!string.IsNullOrWhiteSpace(FromAssociatedId)) found.FromAssociatedId = FromAssociatedId;
+                if (CurrentUser > 0) found.ModifiedBy = CurrentUser;
+                found.ModifiedDate = DateTime.Now;
+
                 db.SaveChanges();
             }
         }

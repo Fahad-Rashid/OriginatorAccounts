@@ -34,29 +34,48 @@ namespace OriginatorAccount.Controllers
 
         public ActionResult UpdateUserSubAccounts(string id)
         {
-            tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
-            if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-            string[] UsersAccountList = id.Split(',');
-            var SelectedUserId = UsersAccountList[UsersAccountList.Length - 1];
-            UsersAccountList = UsersAccountList.Take(UsersAccountList.Count() - 1).ToArray();
-
-            long DefaultToId = 0;
-            long DefaultFromId = 0;
-
-            foreach (var item in UsersAccountList)
+            try
             {
-                if (item.Contains('F'))
+                tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
+                if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
+                string[] UsersAccountList = id.Split(',');
+                var SelectedUserId = UsersAccountList[UsersAccountList.Length - 1];
+                UsersAccountList = UsersAccountList.Take(UsersAccountList.Count() - 1).ToArray();
+
+                string DefaultToAccountNumber = null;
+                string DefaultFromAccountNumber = null;
+                List<string> ToAssociatedAccountNumber = new List<string>();
+                List<string> FromAssociatedAccountNumber = new List<string>();
+
+
+                foreach (var item in UsersAccountList)
                 {
-                    DefaultFromId = Convert.ToInt64(item.Substring(2));
+                    var parts = item.Split('|');
+                    if (parts[0] == "TA")
+                    {
+                        ToAssociatedAccountNumber.Add(parts[1]);
+                    }
+                    else if (parts[0] == "FA")
+                    {
+                        FromAssociatedAccountNumber.Add(parts[1]);
+                    }
+                    else if (parts[0] == "DT")
+                    {
+                        DefaultToAccountNumber = parts[1];
+                    }
+                    else if (parts[0] == "DF")
+                    {
+                        DefaultFromAccountNumber = parts[1];
+                    }
                 }
-                else if (item.Contains('T'))
-                {
-                    DefaultToId = Convert.ToInt64(item.Substring(2));
-                }
+
+                new UserSubAccountHandler().UpdateUserSubAccount(Convert.ToInt64(SelectedUserId), DefaultToAccountNumber, DefaultFromAccountNumber, ToAssociatedAccountNumber, FromAssociatedAccountNumber, user.Id);
+                return JavaScript("showMessage('success', 'Updated Successfully','bottom-right','UserAccounts', 'Manage')");
             }
-            new UserSubAccountHandler().UpdateUserSubAccount(user.Id ,Convert.ToInt64(SelectedUserId), DefaultToId, DefaultFromId);
-            return RedirectToAction("GetUserSubAccounts");
-            //, model.UserId
+            catch (Exception ex)
+            {
+                return JavaScript("showMessage('error', 'Failed to Updated, Please contact to Administrator','bottom-right','UserAccounts', 'Manage')");
+            }
         }
     }
 }
