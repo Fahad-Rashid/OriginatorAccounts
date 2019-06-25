@@ -25,5 +25,6 @@ namespace DAL
         public Nullable<long> DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
+        public Nullable<long> CompanyId { get; set; }
     }
 }

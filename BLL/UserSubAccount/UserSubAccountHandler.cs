@@ -18,7 +18,7 @@ namespace BLL.UserSubAccount
             }
         }
 
-        public void UpdateUserSubAccount(long UserId, string DTaccount, string DFaccount, List<string> TAaccount, List<string> FAaccount, long CurrentUser)
+        public void UpdateUserSubAccount(long UserId, string DTaccount, string DFaccount, List<string> TAaccount, List<string> FAaccount, long CurrentUser, long CompanyId)
         {
             using (OriginatorEntities db = new OriginatorEntities())
             {
@@ -65,6 +65,7 @@ namespace BLL.UserSubAccount
                     if (!string.IsNullOrWhiteSpace(GetDefaultFromAccount.ToString())) found.DefaultFromId = GetDefaultFromAccount;
                     if (!string.IsNullOrWhiteSpace(ToAssociatedId)) found.ToAssociatedId = ToAssociatedId;
                     if (!string.IsNullOrWhiteSpace(FromAssociatedId)) found.FromAssociatedId = FromAssociatedId;
+                    if (CompanyId > 0) found.CompanyId = CompanyId;
                     if (CurrentUser > 0) found.ModifiedBy = CurrentUser;
                     found.ModifiedDate = DateTime.Now;
                 }

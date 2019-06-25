@@ -46,7 +46,7 @@ namespace OriginatorAccount.Controllers
                 string DefaultFromAccountNumber = null;
                 List<string> ToAssociatedAccountNumber = new List<string>();
                 List<string> FromAssociatedAccountNumber = new List<string>();
-
+                long CompanyId = (long)user.CompanyId;
 
                 foreach (var item in UsersAccountList)
                 {
@@ -69,7 +69,7 @@ namespace OriginatorAccount.Controllers
                     }
                 }
 
-                new UserSubAccountHandler().UpdateUserSubAccount(Convert.ToInt64(SelectedUserId), DefaultToAccountNumber, DefaultFromAccountNumber, ToAssociatedAccountNumber, FromAssociatedAccountNumber, user.Id);
+                new UserSubAccountHandler().UpdateUserSubAccount(Convert.ToInt64(SelectedUserId), DefaultToAccountNumber, DefaultFromAccountNumber, ToAssociatedAccountNumber, FromAssociatedAccountNumber, user.Id, CompanyId);
                 return JavaScript("showMessage('success', 'Updated Successfully','bottom-right','UserAccounts', 'Manage')");
             }
             catch (Exception ex)

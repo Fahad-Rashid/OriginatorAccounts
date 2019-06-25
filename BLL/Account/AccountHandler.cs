@@ -47,6 +47,7 @@ namespace BLL.Account
                 if (!string.IsNullOrWhiteSpace(account.Description)) found.Description = account.Description;
                 if (!string.IsNullOrWhiteSpace(account.Amount.ToString())) found.Amount = account.Amount;
                 if (!string.IsNullOrWhiteSpace(account.Source.ToString())) found.Source = account.Source;
+                if (account.CompanyId != null && account.CompanyId > 0) found.CompanyId = account.CompanyId;
                 if (account.ModifiedBy != null && account.ModifiedBy > 0) found.ModifiedBy = account.ModifiedBy;
                 if (!string.IsNullOrWhiteSpace(account.ModifiedDate.ToString())) found.ModifiedDate = account.ModifiedDate;
                 db.SaveChanges();

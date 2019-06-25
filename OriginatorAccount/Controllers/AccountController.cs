@@ -43,6 +43,7 @@ namespace OriginatorAccount.Controllers
                     tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                     if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
                     tblAccount Table = (Account).TotblAccount();
+                    Table.CompanyId = user.CompanyId;
                     Table.CreatedBy = user.Id;
                     Table.CreatedDate = DateTime.Now;
                     new AccountHandler().AddAccount(Table);
@@ -84,6 +85,7 @@ namespace OriginatorAccount.Controllers
                     tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                     if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
                     tblAccount Table = (Account).TotblAccount();
+                    Table.CompanyId = user.CompanyId;
                     Table.ModifiedBy = user.Id;
                     Table.ModifiedDate = DateTime.Now;
                     new AccountHandler().UpdateAccount(Account.Id, Table);

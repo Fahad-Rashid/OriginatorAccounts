@@ -14,7 +14,6 @@ namespace OriginatorAccount.Models.SubAccount
         public string Description { get; set; }
         public decimal Amount { get; set; }
         public long AccountId { get; set; }
-        public long CompanyId { get; set; }
         public long TypeId { get; set; }
         public string AccountNumber { get; set; }
         public string SubTypeName { get; set; }

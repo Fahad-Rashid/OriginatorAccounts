@@ -21,5 +21,6 @@ namespace DAL
         public Nullable<long> CreatedBy { get; set; }
         public string DefaultFrom { get; set; }
         public string DefaultTo { get; set; }
+        public Nullable<long> CompanyId { get; set; }
     }
 }

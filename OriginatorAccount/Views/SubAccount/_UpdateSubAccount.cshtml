@@ -12,7 +12,7 @@
 {
     <div class="modal-content">
         <div class="modal-header">
-            <h6 class="title" id="defaultModalLabel">Add User</h6>
+            <h6 class="title" id="defaultModalLabel">Update SubAccount</h6>
         </div>
         <div class="modal-body">
             <div class="row clearfix">
@@ -46,13 +46,13 @@
                         @Html.ValidationMessageFor(m => m.AccountId, "", new { @style = "color:red" })
                     </div>
                 </div>
-                <div class="col-md-6">
+                @*<div class="col-md-6">
                     <div class="form-group">
                         @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.Companies, "- Select Company -", new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.CompanyId, "", new { @style = "color:red" })
                     </div>
-                </div>
-                <div class="col-md-6">
+                </div>*@
+                <div class="col-md-12">
                     <div class="form-group">
                         @Html.DropDownListFor(m => m.TypeId, (IEnumerable<SelectListItem>)ViewBag.SubTypes, "- Select Type -", new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.TypeId, "", new { @style = "color:red" })

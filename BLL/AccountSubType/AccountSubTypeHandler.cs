@@ -46,6 +46,7 @@ namespace BLL.AccountSubType
                 tblAccountSubType found = db.tblAccountSubTypes.Find(id);
                 if (!string.IsNullOrWhiteSpace(AccountSubType.TypeName)) found.TypeName = AccountSubType.TypeName;
                 if (!string.IsNullOrWhiteSpace(AccountSubType.SubTypeName)) found.SubTypeName = AccountSubType.SubTypeName;
+                if (AccountSubType.CompanyId != null && AccountSubType.CompanyId > 0) found.CompanyId = AccountSubType.CompanyId;
                 if (AccountSubType.ModifiedBy != null && AccountSubType.ModifiedBy > 0) found.ModifiedBy = AccountSubType.ModifiedBy;
                 if (!string.IsNullOrWhiteSpace(AccountSubType.ModifiedDate.ToString())) found.ModifiedDate = AccountSubType.ModifiedDate;
 

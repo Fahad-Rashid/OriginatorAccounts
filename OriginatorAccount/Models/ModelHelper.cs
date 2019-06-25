@@ -74,7 +74,6 @@ namespace OriginatorAccount.Models
             table.Password = model.Password;
             table.Address = model.Address;
             table.CNIC = model.CNIC;
-            table.CompanyId = model.CompanyId;
             table.RoleId = model.RoleId;
             table.PhoneNo = model.PhoneNo;
             return table;
@@ -147,7 +146,6 @@ namespace OriginatorAccount.Models
             entity.Description = model.Description;
             entity.Amount = model.Amount;
             entity.AccountId = model.AccountId;
-            entity.CompanyId = model.CompanyId;
             entity.TypeId = model.TypeId;
             entity.AccountNumber = model.AccountNumber;
             return entity;
@@ -162,7 +160,6 @@ namespace OriginatorAccount.Models
             model.Description = entity.Description;
             model.Amount = (decimal)entity.Amount;
             model.AccountId = (long)entity.AccountId;
-            model.CompanyId = (long)entity.CompanyId;
             model.TypeId = (long)entity.TypeId;
             model.AccountNumber = entity.AccountNumber;
             model.SubTypeName = entity.SubtypeName;

@@ -27,5 +27,6 @@ namespace DAL
         public Nullable<bool> IsDeleted { get; set; }
         public string ToAssociatedId { get; set; }
         public string FromAssociatedId { get; set; }
+        public Nullable<long> CompanyId { get; set; }
     }
 }

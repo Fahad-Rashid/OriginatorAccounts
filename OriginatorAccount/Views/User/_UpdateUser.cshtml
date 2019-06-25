@@ -18,37 +18,37 @@
             <div class="row clearfix">
                 <div class="col-md-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.UserName, Model.UserName ,new { @class = "form-control", placeholder = "Name" })
+                        @Html.TextBoxFor(m => m.UserName, Model.UserName, new { @class = "form-control", placeholder = "Name" })
                         @Html.ValidationMessageFor(m => m.UserName, "", new { @style = "color:red" })
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.Password, Model.Password ,new { @class = "form-control", placeholder = "Password" })
+                        @Html.TextBoxFor(m => m.Password, Model.Password, new { @class = "form-control", placeholder = "Password" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @style = "color:red" })
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.PhoneNo, Model.PhoneNo ,new { @class = "form-control", placeholder = "Phone" })
+                        @Html.TextBoxFor(m => m.PhoneNo, Model.PhoneNo, new { @class = "form-control", placeholder = "Phone" })
                         @Html.ValidationMessageFor(m => m.PhoneNo, "", new { @style = "color:red" })
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.Email, Model.Email ,new { @class = "form-control", placeholder = "Email" })
+                        @Html.TextBoxFor(m => m.Email, Model.Email, new { @class = "form-control", placeholder = "Email" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @style = "color:red" })
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.Address, Model.Address ,new { @class = "form-control", placeholder = "Address" })
+                        @Html.TextBoxFor(m => m.Address, Model.Address, new { @class = "form-control", placeholder = "Address" })
                         @Html.ValidationMessageFor(m => m.Address, "", new { @style = "color:red" })
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.CNIC, Model.CNIC ,new { @class = "form-control", placeholder = "CNIC" })
+                        @Html.TextBoxFor(m => m.CNIC, Model.CNIC, new { @class = "form-control", placeholder = "CNIC" })
                         @Html.ValidationMessageFor(m => m.CNIC, "", new { @style = "color:red" })
                     </div>
                 </div>
@@ -59,13 +59,16 @@
                         @Html.ValidationMessageFor(m => m.RoleId, "", new { @style = "color:red" })
                     </div>
                 </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.Companies, "- Select Company -", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.CompanyId, "", new { @style = "color:red" })
+                @if (ViewBag.Companies != null)
+                {
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.Companies, "- Select Company -", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.CompanyId, "", new { @style = "color:red" })
+                        </div>
                     </div>
-                </div>
+                }
+
             </div>
         </div>
         <div class="modal-footer">

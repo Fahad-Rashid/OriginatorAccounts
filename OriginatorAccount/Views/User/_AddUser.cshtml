@@ -59,13 +59,18 @@
                         @Html.ValidationMessageFor(m => m.RoleId, "", new { @style = "color:red" })
                     </div>
                 </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.Companies, "- Select Company -", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.CompanyId, "", new { @style = "color:red" })
+                @if (ViewBag.Companies != null)
+                {
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.Companies, "- Select Company -", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.CompanyId, "", new { @style = "color:red" })
+                        </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                }
             </div>
         </div>
         <div class="modal-footer">

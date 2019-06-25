@@ -12,6 +12,7 @@ namespace OriginatorAccount
         public static readonly int ACCOUNTANT_ROLE;
         public static readonly int PARTNERS_ROLE;
         public static readonly int EMPLOYEE_ROLE;
+        public static readonly int SUPERADMIN_ROLE;
         public static readonly string CURRENT_USER;
         public static readonly string MY_COOKIE;
         public static bool IsInRole(int id)
@@ -30,6 +31,7 @@ namespace OriginatorAccount
             ACCOUNTANT_ROLE = 2;
             PARTNERS_ROLE = 3;
             EMPLOYEE_ROLE = 4;
+            SUPERADMIN_ROLE = 5;
             MY_COOKIE = "Info";
         }
     }

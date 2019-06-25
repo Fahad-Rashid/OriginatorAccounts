@@ -30,7 +30,7 @@ namespace OriginatorAccount.Controllers
                 tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                 if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
                 ViewBag.Accounts = new AccountHandler().GetAccounts().AccountSelectListItem();
-                ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
+                //ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
                 ViewBag.SubTypes = new AccountSubTypeHandler().GetAccountSubTypes().AccountSubTypeSelectListItem();
                 return PartialView("~/Views/SubAccount/_AddSubAccount.cshtml");
             }
@@ -49,6 +49,7 @@ namespace OriginatorAccount.Controllers
                     tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                     if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
                     tblSubAccount Table = (SubAccount).TotblSubAccount();
+                    Table.CompanyId = user.CompanyId;
                     Table.CreatedBy = user.Id;
                     Table.CreatedDate = DateTime.Now;
                     new SubAccountHandler().AddSubAccount(Table);
@@ -72,7 +73,7 @@ namespace OriginatorAccount.Controllers
                 tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                 if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
                 ViewBag.Accounts = new AccountHandler().GetAccounts().AccountSelectListItem();
-                ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
+                //ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
                 ViewBag.SubTypes = new AccountSubTypeHandler().GetAccountSubTypes().AccountSubTypeSelectListItem();
                 VMSubAccount model = new SubAccountHandler().GetSubAccountById(Id).ToVMSubAccount();
                 return PartialView("~/Views/SubAccount/_UpdateSubAccount.cshtml", model);
@@ -93,6 +94,7 @@ namespace OriginatorAccount.Controllers
                     tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                     if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
                     tblSubAccount Table = (SubAccount).TotblSubAccount();
+                    Table.CompanyId = user.CompanyId;
                     Table.ModifiedBy = user.Id;
                     Table.ModifiedDate = DateTime.Now;
                     new SubAccountHandler().UpdateSubAccount(SubAccount.Id, Table);

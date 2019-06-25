@@ -28,7 +28,10 @@ namespace OriginatorAccount.Controllers
                 tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                 if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
                 ViewBag.Roles = new RoleHandler().GetRoles().RoleSelectListItem();
-                ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
+                if(user.RoleId == 5)
+                {
+                    ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
+                }
                 return PartialView("~/Views/User/_AddUser.cshtml");
             }
             catch (Exception ex)
@@ -46,6 +49,15 @@ namespace OriginatorAccount.Controllers
                     tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                     if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
                     tblUser Table = (VMuser).TotblUser();
+                    
+                    if(user.RoleId == 5)
+                    {
+                        Table.CompanyId = VMuser.CompanyId;
+                    }
+                    else
+                    {
+                        Table.CompanyId = user.CompanyId;
+                    }
                     Table.CreatedBy = user.Id;
                     Table.CreatedDate = DateTime.Now;
                     new UserHandler().AddUser(Table);
@@ -69,7 +81,10 @@ namespace OriginatorAccount.Controllers
                 if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
                 VMUser model = new UserHandler().GetUserById(Id).ToVMUser();
                 ViewBag.Roles = new RoleHandler().GetRoles().RoleSelectListItem();
-                ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
+                if (user.RoleId == 5)
+                {
+                    ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
+                }
                 return PartialView("~/Views/User/_UpdateUser.cshtml", model);
             }
             catch (Exception ex)
@@ -88,6 +103,14 @@ namespace OriginatorAccount.Controllers
                     tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                     if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
                     tblUser Table = (VMuser).TotblUser();
+                    if(user.RoleId == 5)
+                    {
+                        Table.CompanyId = VMuser.CompanyId;
+                    }
+                    else
+                    {
+                        Table.CompanyId = VMuser.CompanyId;
+                    }
                     Table.ModifiedBy = user.Id;
                     Table.ModifiedDate = DateTime.Now;
                     new UserHandler().UpdateUser(VMuser.Id, Table);
