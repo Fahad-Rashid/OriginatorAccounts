@@ -9,11 +9,11 @@ namespace BLL.UserSubAccount
 {
    public class UserSubAccountHandler
     {
-        public List<SPGetUserAccounts_Result> GetUserSubAccountById(long Id)
+        public List<SPGetUserAccounts_Result> GetUserSubAccountById(long Id, long CompanyId)
         {
             using(OriginatorEntities db = new OriginatorEntities())
             {
-                return (from data in db.SPGetUserAccounts(Id)
+                return (from data in db.SPGetUserAccounts(Id, CompanyId)
                         select data).ToList();
             }
         }
@@ -57,7 +57,7 @@ namespace BLL.UserSubAccount
 
 
                 tblUserSubAccount found = (from data in db.tblUserSubAccounts
-                                         where data.UserId == UserId
+                                         where data.UserId == UserId && data.CompanyId == CompanyId
                                          select data).FirstOrDefault();
                 if (found != null)
                 {
@@ -71,7 +71,7 @@ namespace BLL.UserSubAccount
                 }
                 else
                 {
-                    tblUserSubAccount table = new tblUserSubAccount { UserId = UserId, DefaultToId = GetDefaultToAccount, DefaultFromId = GetDefaultFromAccount, ToAssociatedId = ToAssociatedId, FromAssociatedId = FromAssociatedId, CreatedBy = CurrentUser, CreatedDate = DateTime.Now };
+                    tblUserSubAccount table = new tblUserSubAccount { UserId = UserId, DefaultToId = GetDefaultToAccount, DefaultFromId = GetDefaultFromAccount, ToAssociatedId = ToAssociatedId, FromAssociatedId = FromAssociatedId, CreatedBy = CurrentUser, CreatedDate = DateTime.Now, CompanyId = CompanyId };
                     db.tblUserSubAccounts.Add(table);
                 }
                 

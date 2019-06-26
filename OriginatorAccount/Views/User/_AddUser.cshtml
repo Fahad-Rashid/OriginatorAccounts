@@ -8,7 +8,7 @@
         type="text/javascript">
 </script>
 
-@using (Ajax.BeginForm("AddUser", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "PutData", OnComplete = "CloseModal" }))
+@using (Ajax.BeginForm("AddUser", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "PutData", OnComplete = "CloseModal"} , new { enctype = "multipart/form-data" }))
 {
     <div class="modal-content">
         <div class="modal-header">
@@ -59,6 +59,14 @@
                         @Html.ValidationMessageFor(m => m.RoleId, "", new { @style = "color:red" })
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.ImageUrl, new { @class = "form-control", type = "file" })
+                    </div>
+                </div>
+
+
                 @if (ViewBag.Companies != null)
                 {
                     <div class="col-md-6">

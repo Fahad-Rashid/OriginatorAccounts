@@ -9,6 +9,15 @@ namespace BLL.User
 {
    public class UserHandler
     {
+        public List<ViewUser> GetUsersAgainstCompanyId(long CompanyId)
+        {
+            using (OriginatorEntities db = new OriginatorEntities())
+            {
+                return (from u in db.ViewUsers
+                        where u.CompanyId == CompanyId
+                        select u).ToList();
+            }
+        }
         public tblUser GetUser(string loginid, string password)
         {
             using (OriginatorEntities db = new OriginatorEntities())
@@ -28,12 +37,21 @@ namespace BLL.User
             }
         }
 
-        public List<ViewUser> GetUsers()
+        public List<ViewUser> GetUsersForSuperAdmin()
         {
             using(OriginatorEntities db = new OriginatorEntities())
             {
                 return (from data in db.ViewUsers
                         where data.IsDeleted != true
+                        select data).ToList();
+            }
+        }
+        public List<ViewUser> GetUsersForAdmin(long CompanyId)
+        {
+            using (OriginatorEntities db = new OriginatorEntities())
+            {
+                return (from data in db.ViewUsers
+                        where data.IsDeleted != true && data.CompanyId == CompanyId
                         select data).ToList();
             }
         }

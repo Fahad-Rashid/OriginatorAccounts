@@ -349,6 +349,7 @@
     <Compile Include="Models\AccountSubType\VMAccountSubType.cs" />
     <Compile Include="Models\Account\VMAccount.cs" />
     <Compile Include="Models\Company\VMCompany.cs" />
+    <Compile Include="Models\DDLViewModel.cs" />
     <Compile Include="Models\ModelHelper.cs" />
     <Compile Include="Models\SubAccount\VMSubAccount.cs" />
     <Compile Include="Models\Transaction\VMTransaction.cs" />
@@ -395,6 +396,7 @@
     <Content Include="Views\AccountSubType\_UpdateAccountSubType.cshtml" />
     <Content Include="Views\UserAccounts\_Manage.cshtml" />
     <Content Include="Views\Transaction\_AddTransaction.cshtml" />
+    <Content Include="Views\Shared\_DDLView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -404,6 +406,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DataImages\User\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">

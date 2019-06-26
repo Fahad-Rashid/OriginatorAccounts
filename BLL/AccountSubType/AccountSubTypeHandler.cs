@@ -9,21 +9,21 @@ namespace BLL.AccountSubType
 {
    public class AccountSubTypeHandler
     {
-        public List<tblAccountSubType> GetAccountSubTypes()
+        public List<tblAccountSubType> GetAccountSubTypes(long CompanyId)
         {
             using(OriginatorEntities db = new OriginatorEntities())
             {
                 return (from data in db.tblAccountSubTypes
-                        where data.IsDeleted != true
+                        where data.IsDeleted != true && data.CompanyId == CompanyId
                         select data).ToList();
             }
         }
-        public tblAccountSubType GetAccountSubTypeById(long Id)
+        public tblAccountSubType GetAccountSubTypeById(long Id, long CompanyId)
         {
             using (OriginatorEntities db = new OriginatorEntities())
             {
                 return (from data in db.tblAccountSubTypes
-                        where data.Id == Id
+                        where data.Id == Id && data.CompanyId == CompanyId
                         select data).FirstOrDefault();
             }
         }

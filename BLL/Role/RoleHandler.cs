@@ -14,6 +14,7 @@ namespace BLL.Role
             using (OriginatorEntities db = new OriginatorEntities())
             {
                 return (from data in db.tblRoles
+                        where data.RoleName != "SuperAdmin"
                         select data).ToList();
             }
         }

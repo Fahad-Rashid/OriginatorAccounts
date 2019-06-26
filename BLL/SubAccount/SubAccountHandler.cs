@@ -9,22 +9,22 @@ namespace BLL.SubAccount
 {
    public class SubAccountHandler
     {
-        public List<ViewSubAccount> GetSubAccounts()
+        public List<ViewSubAccount> GetSubAccounts(long CompanyId)
         {
             using(OriginatorEntities db = new OriginatorEntities())
             {
                 return (from data in db.ViewSubAccounts
-                        where data.IsDeleted != true
+                        where data.IsDeleted != true && data.CompanyId == CompanyId
                         select data).ToList();
             }
         }
 
-        public ViewSubAccount GetSubAccountById(long id)
+        public ViewSubAccount GetSubAccountById(long id, long CompanyId)
         {
             using(OriginatorEntities db = new OriginatorEntities())
             {
                 return (from data in db.ViewSubAccounts
-                        where data.Id == id
+                        where data.Id == id && data.CompanyId == CompanyId
                         select data).FirstOrDefault();
             }
         }

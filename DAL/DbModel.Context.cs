@@ -146,13 +146,17 @@ namespace DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPTranscation", descriptionParameter, amountParameter, createdDateParameter, createdByParameter, fromIdParameter, toIdParameter, fromAccountIdParameter, toAccountIdParameter);
         }
     
-        public virtual ObjectResult<SPGetUserAccounts_Result> SPGetUserAccounts(Nullable<long> userId)
+        public virtual ObjectResult<SPGetUserAccounts_Result> SPGetUserAccounts(Nullable<long> userId, Nullable<long> companyId)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("UserId", userId) :
                 new ObjectParameter("UserId", typeof(long));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SPGetUserAccounts_Result>("SPGetUserAccounts", userIdParameter);
+            var companyIdParameter = companyId.HasValue ?
+                new ObjectParameter("CompanyId", companyId) :
+                new ObjectParameter("CompanyId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SPGetUserAccounts_Result>("SPGetUserAccounts", userIdParameter, companyIdParameter);
         }
     }
 }

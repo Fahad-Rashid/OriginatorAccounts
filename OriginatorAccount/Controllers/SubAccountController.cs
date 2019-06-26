@@ -19,7 +19,7 @@ namespace OriginatorAccount.Controllers
         {
             tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
             if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-            List<VMSubAccount> model = new SubAccountHandler().GetSubAccounts().ToVMSubAccountList();
+            List<VMSubAccount> model = new SubAccountHandler().GetSubAccounts((long)user.CompanyId).ToVMSubAccountList();
             return PartialView("~/Views/SubAccount/_Manage.cshtml", model);
         }
 
@@ -29,9 +29,9 @@ namespace OriginatorAccount.Controllers
             {
                 tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                 if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-                ViewBag.Accounts = new AccountHandler().GetAccounts().AccountSelectListItem();
+                ViewBag.Accounts = new AccountHandler().GetAccounts((long)user.CompanyId).AccountSelectListItem();
                 //ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
-                ViewBag.SubTypes = new AccountSubTypeHandler().GetAccountSubTypes().AccountSubTypeSelectListItem();
+                ViewBag.SubTypes = new AccountSubTypeHandler().GetAccountSubTypes((long)user.CompanyId).AccountSubTypeSelectListItem();
                 return PartialView("~/Views/SubAccount/_AddSubAccount.cshtml");
             }
             catch (Exception ex)
@@ -72,10 +72,10 @@ namespace OriginatorAccount.Controllers
             {
                 tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                 if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-                ViewBag.Accounts = new AccountHandler().GetAccounts().AccountSelectListItem();
+                ViewBag.Accounts = new AccountHandler().GetAccounts((long)user.CompanyId).AccountSelectListItem();
                 //ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
-                ViewBag.SubTypes = new AccountSubTypeHandler().GetAccountSubTypes().AccountSubTypeSelectListItem();
-                VMSubAccount model = new SubAccountHandler().GetSubAccountById(Id).ToVMSubAccount();
+                ViewBag.SubTypes = new AccountSubTypeHandler().GetAccountSubTypes((long)user.CompanyId).AccountSubTypeSelectListItem();
+                VMSubAccount model = new SubAccountHandler().GetSubAccountById(Id, (long)user.CompanyId).ToVMSubAccount();
                 return PartialView("~/Views/SubAccount/_UpdateSubAccount.cshtml", model);
             }
             catch (Exception ex)

@@ -18,8 +18,16 @@ namespace OriginatorAccount.Controllers
         {
             tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
             if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-            List<VMUser> Users = new UserHandler().GetUsers().ToVMUserList();
-            return PartialView("~/Views/User/_ManageUser.cshtml", Users);
+            List<VMUser> UsersList = new List<VMUser>();
+            if (user.RoleId == 5)
+            {
+                UsersList = new UserHandler().GetUsersForSuperAdmin().ToVMUserList();
+            }
+            else
+            {
+                UsersList = new UserHandler().GetUsersForAdmin((long)user.CompanyId).ToVMUserList();
+            }
+            return PartialView("~/Views/User/_ManageUser.cshtml", UsersList);
         }
         public ActionResult AddUser()
         {
@@ -60,6 +68,19 @@ namespace OriginatorAccount.Controllers
                     }
                     Table.CreatedBy = user.Id;
                     Table.CreatedDate = DateTime.Now;
+                    long uno = DateTime.Now.Ticks;
+                    if(VMuser.ImageUrl != null)
+                    {
+                        HttpPostedFileBase file = VMuser.ImageUrl;
+                        if (!string.IsNullOrWhiteSpace(file.FileName))
+                        {
+                            string url = $"~/DataImages/User/{uno}{file.FileName.Substring(file.FileName.LastIndexOf("."))}";
+                            string path = Request.MapPath(url);
+                            file.SaveAs(path);
+                            Table.ImageUrl = url;
+                        }
+                    }
+                    
                     new UserHandler().AddUser(Table);
                     return JavaScript("showMessage('success', 'User added Successfully','bottom-right','User', 'Manage')");
                 }
@@ -188,6 +209,15 @@ namespace OriginatorAccount.Controllers
         public ActionResult RedirectToLogin()
         {
             return PartialView("~/Views/User/_RedirectToLogin.cshtml");
+        }
+
+        public ActionResult GetUser(long id)
+        {
+            DDLViewModel model = new DDLViewModel();
+            model.Name = "User";
+            model.Caption = "- Select User -";
+            model.Values = new UserHandler().GetUsersAgainstCompanyId(id).UserSelectListItem();
+            return View("~/Views/Shared/_DDLView.cshtml", model);
         }
     }
 }

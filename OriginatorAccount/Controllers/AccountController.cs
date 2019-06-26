@@ -16,7 +16,7 @@ namespace OriginatorAccount.Controllers
         {
             tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
             if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-            List<VMAccount> model = new AccountHandler().GetAccounts().ToVMAccountList();
+            List<VMAccount> model = new AccountHandler().GetAccounts((long)user.CompanyId).ToVMAccountList();
             return PartialView("~/Views/Account/_Manage.cshtml", model);
         }
 
@@ -66,7 +66,7 @@ namespace OriginatorAccount.Controllers
             {
                 tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                 if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-                VMAccount model = new AccountHandler().GetAccountById(Id).ToVMAccount();
+                VMAccount model = new AccountHandler().GetAccountById(Id, (long)user.CompanyId).ToVMAccount();
                 return PartialView("~/Views/Account/_UpdateAccount.cshtml", model);
             }
             catch (Exception ex)

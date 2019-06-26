@@ -1,4 +1,5 @@
-﻿using BLL.User;
+﻿using BLL.Company;
+using BLL.User;
 using BLL.UserSubAccount;
 using DAL;
 using OriginatorAccount.Models;
@@ -17,17 +18,28 @@ namespace OriginatorAccount.Controllers
         {
             tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
             if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-            ViewBag.Users = new UserHandler().GetUsers().UserSelectListItem();
-            List<VMUserSubAccount> InnerModel = new List<VMUserSubAccount>();
-            VMUserSubAccountParent model = new VMUserSubAccountParent() { UserId = 0, UserSubAccounts = InnerModel };
+            ViewBag.Users = new UserHandler().GetUsersForAdmin((long)user.CompanyId).UserSelectListItem();
+            ViewBag.RoleId = user.RoleId;
+            ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
             return PartialView("~/Views/UserAccounts/_Manage.cshtml");
         }
-        public ActionResult GetUserSubAccounts(long Id)
+        public ActionResult GetUserSubAccounts(long Id, long CompanyId)
         {
             tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
             if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-            ViewBag.Users = new UserHandler().GetUsers().UserSelectListItem();
-            List<VMUserSubAccount> InnerModel = new UserSubAccountHandler().GetUserSubAccountById(Id).ToVMUserSubAccountList();
+            List<VMUserSubAccount> InnerModel = new List<VMUserSubAccount>();
+            if (CompanyId != 0 && CompanyId > 0)
+            {
+                ViewBag.Users = new UserHandler().GetUsersForSuperAdmin().UserSelectListItem();
+                InnerModel = new UserSubAccountHandler().GetUserSubAccountById(Id, (long)CompanyId).ToVMUserSubAccountList();
+            }
+            else
+            {
+                ViewBag.Users = new UserHandler().GetUsersForAdmin((long)user.CompanyId).UserSelectListItem();
+                InnerModel = new UserSubAccountHandler().GetUserSubAccountById(Id, (long)user.CompanyId).ToVMUserSubAccountList();
+            }
+            ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
+            ViewBag.RoleId = user.RoleId;
             VMUserSubAccountParent Model = new VMUserSubAccountParent { UserId = Id, UserSubAccounts = InnerModel };
             return PartialView("~/Views/UserAccounts/_Manage.cshtml", Model);
         }

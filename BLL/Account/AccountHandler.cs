@@ -9,12 +9,12 @@ namespace BLL.Account
 {
    public class AccountHandler
     {
-        public List<tblAccount> GetAccounts()
+        public List<tblAccount> GetAccounts(long CompanyId)
         {
             using(OriginatorEntities db = new OriginatorEntities())
             {
                 return (from data in db.tblAccounts
-                        where data.IsDeleted != true
+                        where data.IsDeleted != true && data.CompanyId == CompanyId
                         select data).ToList();
             }
         }
@@ -28,12 +28,12 @@ namespace BLL.Account
             }
         }
 
-        public tblAccount GetAccountById(long Id)
+        public tblAccount GetAccountById(long Id, long CompanyId)
         {
             using(OriginatorEntities db = new OriginatorEntities())
             {
                 return (from data in db.tblAccounts
-                        where data.Id == Id
+                        where data.Id == Id && data.CompanyId == CompanyId
                         select data).FirstOrDefault();
             }
         }

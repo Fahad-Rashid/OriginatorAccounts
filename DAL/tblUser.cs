@@ -30,5 +30,6 @@ namespace DAL
         public Nullable<long> DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

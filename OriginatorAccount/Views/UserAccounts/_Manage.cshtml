@@ -59,12 +59,29 @@
                                     <li><a href="javascript:void(0);" class="btn btn-info" id="AddAccount">Add New</a></li>
                                 </ul>
                             </div>
-                            <div class="body">
+
+                            @if (ViewBag.RoleId == 5)
+                            {
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        @Html.DropDownListFor(m => m.UserId, (IEnumerable<SelectListItem>)ViewBag.Users, "- Select User -", new { @class = "form-control" })
+                                        @Html.DropDownList("Company", (IEnumerable<SelectListItem>)ViewBag.Companies, "- Select Company -", new { @class = "form-control" })
                                     </div>
                                 </div>
+                                <div id="Userdiv" class="col-md-3">
+
+                                </div>
+                            }
+
+
+                            <div class="body">
+                                @if (ViewBag.RoleId != 5)
+                                {
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.DropDownListFor(m => m.UserId, (IEnumerable<SelectListItem>)ViewBag.Users, "- Select User -", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                }
 
                                 <div class="table-responsive">
                                     <table id="tblOne" class="table table-hover js-basic-example dataTable table-custom table-striped m-b-0 c_list">
@@ -84,90 +101,90 @@
                                                 {
                                                     foreach (var m in Model.UserSubAccounts)
                                                     {
-                                            <tr>
-                                                <td>@Html.DisplayFor(c => m.AccountNumber)</td>
-                                                <td>
-                                                    @if (m.DefaultFromId == 1)
-                                                    {
-                                                        <label class="fancy-checkbox">
-                                                            <input class="checkbox-tick DefaultFrom" type="checkbox" name="checkbox" checked="checked">
-                                                            <span></span>
-                                                        </label>
-                                                    }
-                                                    else
-                                                    {
-                                                        <label class="fancy-checkbox">
-                                                            <input class="checkbox-tick DefaultFrom" type="checkbox" name="checkbox">
-                                                            <span></span>
-                                                        </label>
-                                                    }
+                                                        <tr>
+                                                            <td>@Html.DisplayFor(c => m.AccountNumber)</td>
+                                                            <td>
+                                                                @if (m.DefaultFromId == 1)
+                                                                {
+                                                                    <label class="fancy-checkbox">
+                                                                        <input class="checkbox-tick DefaultFrom" type="checkbox" name="checkbox" checked="checked">
+                                                                        <span></span>
+                                                                    </label>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <label class="fancy-checkbox">
+                                                                        <input class="checkbox-tick DefaultFrom" type="checkbox" name="checkbox">
+                                                                        <span></span>
+                                                                    </label>
+                                                                }
 
-                                                </td>
-                                                <td>
-                                                    @if (m.DefaultToId == 1)
-                                                    {
-                                                        <label class="fancy-checkbox">
-                                                            <input class="checkbox-tick DefaultTo" type="checkbox" name="checkbox" checked="checked">
-                                                            <span></span>
-                                                        </label>
-                                                    }
-                                                    else
-                                                    {
-                                                        <label class="fancy-checkbox">
-                                                            <input class="checkbox-tick DefaultTo" type="checkbox" name="checkbox">
-                                                            <span></span>
-                                                        </label>
-                                                    }
+                                                            </td>
+                                                            <td>
+                                                                @if (m.DefaultToId == 1)
+                                                                {
+                                                                    <label class="fancy-checkbox">
+                                                                        <input class="checkbox-tick DefaultTo" type="checkbox" name="checkbox" checked="checked">
+                                                                        <span></span>
+                                                                    </label>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <label class="fancy-checkbox">
+                                                                        <input class="checkbox-tick DefaultTo" type="checkbox" name="checkbox">
+                                                                        <span></span>
+                                                                    </label>
+                                                                }
 
-                                                </td>
-                                                <td>
-                                                    @if (m.FromAssociatedId == "1")
-                                                    {
-                                                        <label class="fancy-checkbox">
-                                                            <input class="checkbox-tick FromAssociated" type="checkbox" name="checkbox" checked="checked">
-                                                            <span></span>
-                                                        </label>
-                                                    }
-                                                    else
-                                                    {
-                                                        <label class="fancy-checkbox">
-                                                            <input class="checkbox-tick FromAssociated" type="checkbox" name="checkbox">
-                                                            <span></span>
-                                                        </label>
-                                                    }
-                                                </td>
-                                                <td>
-                                                    @if (m.ToAssociatedId == "1")
-                                                    {
-                                                        <label class="fancy-checkbox">
-                                                            <input class="checkbox-tick ToAssociated" type="checkbox" name="checkbox" checked="checked">
-                                                            <span></span>
-                                                        </label>
-                                                    }
-                                                    else
-                                                    {
-                                                        <label class="fancy-checkbox">
-                                                            <input class="checkbox-tick ToAssociated" type="checkbox" name="checkbox">
-                                                            <span></span>
-                                                        </label>
-                                                    }
+                                                            </td>
+                                                            <td>
+                                                                @if (m.FromAssociatedId == "1")
+                                                                {
+                                                                    <label class="fancy-checkbox">
+                                                                        <input class="checkbox-tick FromAssociated" type="checkbox" name="checkbox" checked="checked">
+                                                                        <span></span>
+                                                                    </label>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <label class="fancy-checkbox">
+                                                                        <input class="checkbox-tick FromAssociated" type="checkbox" name="checkbox">
+                                                                        <span></span>
+                                                                    </label>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @if (m.ToAssociatedId == "1")
+                                                                {
+                                                                    <label class="fancy-checkbox">
+                                                                        <input class="checkbox-tick ToAssociated" type="checkbox" name="checkbox" checked="checked">
+                                                                        <span></span>
+                                                                    </label>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <label class="fancy-checkbox">
+                                                                        <input class="checkbox-tick ToAssociated" type="checkbox" name="checkbox">
+                                                                        <span></span>
+                                                                    </label>
+                                                                }
 
-                                                </td>
+                                                            </td>
 
 
-                                                @*<td class="width45">
-            @Html.CheckBoxFor(c => m.DefaultFrom, new { @class = "form-control", name = "CheckBoxDefaultFrom" })
-        </td>
-        <td class="width45">
-            @Html.CheckBoxFor(c => m.DefaultTo, new { @class = "form-control", name = "CheckBoxDefaultFrom" })
-        </td>
-        <td class="width45">
-            @Html.CheckBoxFor(c => m.FromAssociated, new { @class = "form-control CheckBox-Tick" })
-        </td>
-        <td class="width45">
-            @Html.CheckBoxFor(c => m.ToAssociated, new { @class = "form-control" })
-        </td>*@
-                                            </tr>
+                                                            @*<td class="width45">
+                                            @Html.CheckBoxFor(c => m.DefaultFrom, new { @class = "form-control", name = "CheckBoxDefaultFrom" })
+                                        </td>
+                                        <td class="width45">
+                                            @Html.CheckBoxFor(c => m.DefaultTo, new { @class = "form-control", name = "CheckBoxDefaultFrom" })
+                                        </td>
+                                        <td class="width45">
+                                            @Html.CheckBoxFor(c => m.FromAssociated, new { @class = "form-control CheckBox-Tick" })
+                                        </td>
+                                        <td class="width45">
+                                            @Html.CheckBoxFor(c => m.ToAssociated, new { @class = "form-control" })
+                                        </td>*@
+                                                        </tr>
                                                     }
 
                                                 }
@@ -191,16 +208,74 @@
         var empIds = [];
         $("#UserId").change(function () {
             $(".loaderjif").show();
-            var Id = $('#UserId option:selected').val();
+            var UserId = $('#UserId option:selected').val();
+            var RoleId = @Html.Raw(Json.Encode(ViewBag.RoleId));
+            if (RoleId == 5) {
+                var CompanyId = $('#Company option:selected').val();
+                $.ajax(
+                    {
+                        url: "/UserAccounts/GetUserSubAccounts",
+                        type: "get",
+                        data: {
+                            Id: UserId,
+                            CompanyId: CompanyId
+                        }
+                    }
+                ).done(function (result) {
+                    $(".loaderjif").hide();
+                    $("#PutData").html(result);
+                });
+            }
+            else
+            {
+                $.ajax(
+                    {
+                        url: "/UserAccounts/GetUserSubAccounts",
+                        type: "get",
+                        data: {
+                            Id: UserId,
+                            CompanyId: 0
+                        }
+                    }
+                ).done(function (result) {
+                    $(".loaderjif").hide();
+                    $("#PutData").html(result);
+                });
+            }
+
+            
+        });
+
+
+        $("#Company").change(function () {
+            var CompanyId = $('#Company option:selected').val();
             $.ajax(
                 {
-                    url: "/UserAccounts/GetUserSubAccounts/" + Id
+                    url: "/User/GetUser/" + CompanyId
                 }
-            ).done(function (result) {
-                $(".loaderjif").hide();
-                $("#PutData").html(result);
+            ).done(function (Users) {
+                $("#Userdiv").html(Users);
+                $("#User").change(function () {
+                    $(".loaderjif").show();
+                    var UserId = $('#User option:selected').val();
+                    var CompanyId = $('#Company option:selected').val();
+                    $.ajax(
+                        {
+                            url: "/UserAccounts/GetUserSubAccounts",
+                            type: "get",
+                            data: {
+                                Id: UserId,
+                                CompanyId: CompanyId
+                            }
+                        }
+                    ).done(function (result) {
+                        $(".loaderjif").hide();
+                        $("#PutData").html(result);
+                    });
                 });
+            });
         });
+
         
         
         $("#tblOne tr").each(function () {

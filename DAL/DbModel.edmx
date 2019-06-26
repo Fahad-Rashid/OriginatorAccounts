@@ -318,6 +318,7 @@
           <Property Name="PhoneNo" Type="nvarchar" MaxLength="100" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" />
           <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="50" />
           <Property Name="RoleId" Type="bigint" />
           <Property Name="CreatedBy" Type="bigint" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -435,6 +436,7 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
         </Function>
         <Function Name="SPGetUserAccounts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="bigint" Mode="In" />
+          <Parameter Name="CompanyId" Type="bigint" Mode="In" />
         </Function>
         <Function Name="SPMilestoneMembers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MillestoneId" Type="bigint" Mode="In" />
@@ -829,6 +831,7 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
           <Property Name="DeletedBy" Type="Int64" />
           <Property Name="DeletedDate" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="ImageUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblUserRole">
           <Key>
@@ -950,7 +953,8 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
           <EntitySet Name="tblAccounts" EntityType="OriginatorModel.tblAccount" />
           <EntitySet Name="tblUserSubAccounts" EntityType="OriginatorModel.tblUserSubAccount" />
           <FunctionImport Name="SPGetUserAccounts" ReturnType="Collection(OriginatorModel.SPGetUserAccounts_Result)">
-          <Parameter Name="UserId" Mode="In" Type="Int64" />
+            <Parameter Name="UserId" Mode="In" Type="Int64" />
+            <Parameter Name="CompanyId" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SPMilestoneMembers_Result">
@@ -1314,6 +1318,7 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="OriginatorModel.tblUser">
               <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
