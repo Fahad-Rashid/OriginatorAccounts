@@ -87,6 +87,7 @@
                                     <table id="tblOne" class="table table-hover js-basic-example dataTable table-custom table-striped m-b-0 c_list">
                                         <thead class="thead-dark">
                                             <tr>
+                                                <th>Account Name</th>
                                                 <th>Account Number</th>
                                                 <th>Default From Account</th>
                                                 <th>Default To Account</th>
@@ -102,6 +103,7 @@
                                                     foreach (var m in Model.UserSubAccounts)
                                                     {
                                                         <tr>
+                                                            <td>Account Name</td>
                                                             <td>@Html.DisplayFor(c => m.AccountNumber)</td>
                                                             <td>
                                                                 @if (m.DefaultFromId == 1)
@@ -279,17 +281,17 @@
         
         
         $("#tblOne tr").each(function () {
-            var ThisRowAccountNumber = $(this).closest('tr').find('td').eq(0).text().trim();
-            if ($(this).closest('tr').find('td:eq(1) input').is(':checked')) {
+            var ThisRowAccountNumber = $(this).closest('tr').find('td').eq(1).text().trim();
+            if ($(this).closest('tr').find('td:eq(2) input').is(':checked')) {
                 empIds.push('DF' + "|" + ThisRowAccountNumber);
             }
-            if ($(this).closest('tr').find('td:eq(2) input').is(':checked')) {
+            if ($(this).closest('tr').find('td:eq(3) input').is(':checked')) {
                 empIds.push('DT' + "|" + ThisRowAccountNumber);
             }
-            if ($(this).closest('tr').find('td:eq(3) input').is(':checked')) {
+            if ($(this).closest('tr').find('td:eq(4) input').is(':checked')) {
                 empIds.push('FA' + "|" + ThisRowAccountNumber);
             }
-            if ($(this).closest('tr').find('td:eq(4) input').is(':checked')) {
+            if ($(this).closest('tr').find('td:eq(5) input').is(':checked')) {
                 empIds.push('TA' + "|" + ThisRowAccountNumber);
             }
         });
@@ -314,8 +316,8 @@
         $('input.DefaultFrom').on('change', function () {
             var arr = empIds;
 
-            if ($(this).closest('tr').find('td:eq(3) input').is(':checked')) {
-                var DefaultFromAccountNumber = $(this).closest('tr').find('td').eq(0).text().trim();
+            if ($(this).closest('tr').find('td:eq(4) input').is(':checked')) {
+                var DefaultFromAccountNumber = $(this).closest('tr').find('td').eq(1).text().trim();
 
                 var flag = false;
                 var i = 0;
@@ -341,15 +343,15 @@
                 $('input.DefaultFrom').not(this).prop('checked', false);
             } else {
                 alert("Not Selected Associated From");
-                $(this).closest('tr').find('td:eq(1) input').prop('checked', false);
+                $(this).closest('tr').find('td:eq(2) input').prop('checked', false);
             }
 
         });
 
         $('input.DefaultTo').on('change', function () {
             var arr = empIds;
-            if ($(this).closest('tr').find('td:eq(4) input').is(':checked')) {
-                var DefaultToAccountNumber = $(this).closest('tr').find('td').eq(0).text().trim();
+            if ($(this).closest('tr').find('td:eq(5) input').is(':checked')) {
+                var DefaultToAccountNumber = $(this).closest('tr').find('td').eq(1).text().trim();
                 
                 var flag = false;
                 
@@ -377,15 +379,15 @@
                 $('input.DefaultTo').not(this).prop('checked', false);
             } else {
                 alert("Not Selected As Associated To");
-                $(this).closest('tr').find('td:eq(2) input').prop('checked', false);
+                $(this).closest('tr').find('td:eq(3) input').prop('checked', false);
             }
         });
 
 
         $('input.FromAssociated').on('change', function () {
             var arr = empIds;
-            $(this).closest('tr').find('td:eq(1) input').prop('checked', false);
-            var FromAssociatedAccountNumber = $(this).closest('tr').find('td').eq(0).text().trim();
+            $(this).closest('tr').find('td:eq(2) input').prop('checked', false);
+            var FromAssociatedAccountNumber = $(this).closest('tr').find('td').eq(1).text().trim();
             var flag = false;
             var EqualToThis = ('DF' + "|" + FromAssociatedAccountNumber);
             var i = 0;
@@ -449,8 +451,8 @@
 
         $('input.ToAssociated').on('change', function () {
             var arr = empIds;
-            $(this).closest('tr').find('td:eq(2) input').prop('checked', false);
-            var ToAssociatedAccountNumber = $(this).closest('tr').find('td').eq(0).text().trim();
+            $(this).closest('tr').find('td:eq(3) input').prop('checked', false);
+            var ToAssociatedAccountNumber = $(this).closest('tr').find('td').eq(1).text().trim();
             var flag = false;
             var EqualToThis = ('DT' + "|" + ToAssociatedAccountNumber);
             var i = 0;

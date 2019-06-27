@@ -41,7 +41,7 @@ namespace OriginatorAccount.Models
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var c in job)
             {
-                items.Add(new SelectListItem { Text = c.AccountName, Value = Convert.ToString(c.Id) });
+                items.Add(new SelectListItem { Text = c.AccountName + " " + c.Description, Value = Convert.ToString(c.Id) });
             }
             return items;
         }
