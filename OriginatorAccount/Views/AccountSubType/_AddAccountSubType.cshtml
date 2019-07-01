@@ -19,9 +19,11 @@
 
     {
     new SelectListItem{ Text="Assets", Value = "Assets" },
-    new SelectListItem{ Text="Expanse", Value = "Expanse" },
+    new SelectListItem{ Text="Expense", Value = "Expense" },
     new SelectListItem{ Text="Liability", Value = "Liability" },
-    new SelectListItem{ Text="Revenue", Value = "Revenue" }
+    new SelectListItem{ Text="Revenue", Value = "Revenue" },
+    new SelectListItem{ Text="Capital", Value = "Capital" }
+
     },
                new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.TypeName, "", new { @style = "color:red" })

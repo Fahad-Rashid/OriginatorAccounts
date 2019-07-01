@@ -103,7 +103,7 @@
                                                     foreach (var m in Model.UserSubAccounts)
                                                     {
                                                         <tr>
-                                                            <td>Account Name</td>
+                                                            <td>@Html.DisplayFor(c => m.SubAccountName)</td>
                                                             <td>@Html.DisplayFor(c => m.AccountNumber)</td>
                                                             <td>
                                                                 @if (m.DefaultFromId == 1)

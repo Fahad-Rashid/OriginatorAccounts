@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,7 @@ namespace OriginatorAccount.Models.SubAccount
         public long Id { get; set; }
         public string AccountName { get; set; }
         public string CompanyName { get; set; }
+        [Required]
         public string SubAccountName { get; set; }
         public string Description { get; set; }
         public decimal Amount { get; set; }

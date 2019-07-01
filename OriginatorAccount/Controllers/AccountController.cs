@@ -40,6 +40,11 @@ namespace OriginatorAccount.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    if(Account.AccountName == "Initial Cash")
+                    {
+                        return JavaScript("showMessage('error', 'Please Change Your Account Name','bottom-right','Account', 'Manage')");
+                    }
+
                     tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                     if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
                     tblAccount Table = (Account).TotblAccount();

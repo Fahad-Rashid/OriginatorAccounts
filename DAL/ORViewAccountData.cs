@@ -10,14 +10,16 @@
 namespace DAL
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class SPGetUserAccounts_Result
+    public partial class ORViewAccountData
     {
-        public string AccountNumber { get; set; }
-        public string SubAccountName { get; set; }
-        public int ToAccoiciated { get; set; }
-        public int FromAccoiciated { get; set; }
-        public int DefaultFrom { get; set; }
-        public int DefaultTo { get; set; }
+        public long Id { get; set; }
+        public string AccountName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
+        public Nullable<long> CompanyId { get; set; }
+        public string Source { get; set; }
+        public decimal Amount { get; set; }
     }
 }

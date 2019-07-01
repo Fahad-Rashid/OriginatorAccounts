@@ -16,8 +16,8 @@ namespace DAL
     {
         public long Id { get; set; }
         public string AccountName { get; set; }
+        public Nullable<long> CompanyId { get; set; }
         public string Description { get; set; }
-        public Nullable<decimal> Amount { get; set; }
         public Nullable<long> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
@@ -26,6 +26,5 @@ namespace DAL
         public Nullable<System.DateTime> DeletedDate { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
         public string Source { get; set; }
-        public Nullable<long> CompanyId { get; set; }
     }
 }

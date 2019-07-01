@@ -65,6 +65,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ORViewAccountData.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PMCompanyData.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>

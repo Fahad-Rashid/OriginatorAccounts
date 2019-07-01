@@ -49,8 +49,9 @@ namespace DAL
         public virtual DbSet<PMViewGetBARA> PMViewGetBARAs { get; set; }
         public virtual DbSet<ViewSubAccount> ViewSubAccounts { get; set; }
         public virtual DbSet<ViewUser> ViewUsers { get; set; }
-        public virtual DbSet<tblAccount> tblAccounts { get; set; }
         public virtual DbSet<tblUserSubAccount> tblUserSubAccounts { get; set; }
+        public virtual DbSet<tblAccount> tblAccounts { get; set; }
+        public virtual DbSet<ORViewAccountData> ORViewAccountDatas { get; set; }
     
         public virtual int PMSPCalculateProjectsAmount()
         {

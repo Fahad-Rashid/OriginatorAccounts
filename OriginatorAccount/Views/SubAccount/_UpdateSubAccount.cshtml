@@ -16,48 +16,48 @@
         </div>
         <div class="modal-body">
             <div class="row clearfix">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.SubAccountName, Model.SubAccountName ,new { @class = "form-control", placeholder = "Sub Account Name" })
                         @Html.ValidationMessageFor(m => m.SubAccountName, "", new { @style = "color:red" })
                     </div>
                 </div>
-                <div class="col-md-6">
+                @*<div class="col-md-6">
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.Amount, Model.Amount.ToString() ,new { @class = "form-control", placeholder = "Amount", type = "number" })
                         @Html.ValidationMessageFor(m => m.Amount, "", new { @style = "color:red" })
                     </div>
-                </div>
+                </div>*@
                 <div class="col-md-12">
                     <div class="form-group">
                         @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Description", rows = "5" })
                         @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color:red" })
                     </div>
                 </div>
-                <div class="col-md-6">
+                @*<div class="col-md-6">
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.AccountNumber, Model.AccountNumber ,new { @class = "form-control", placeholder = "Account Number", type = "number" })
                         @Html.ValidationMessageFor(m => m.AccountNumber, "", new { @style = "color:red" })
                     </div>
-                </div>
-                <div class="col-md-6">
+                </div>*@
+                @*<div class="col-md-6">
                     <div class="form-group">
                         @Html.DropDownListFor(m => m.AccountId, (IEnumerable<SelectListItem>)ViewBag.Accounts, "- Select Account -", new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.AccountId, "", new { @style = "color:red" })
                     </div>
-                </div>
+                </div>*@
                 @*<div class="col-md-6">
                     <div class="form-group">
                         @Html.DropDownListFor(m => m.CompanyId, (IEnumerable<SelectListItem>)ViewBag.Companies, "- Select Company -", new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.CompanyId, "", new { @style = "color:red" })
                     </div>
                 </div>*@
-                <div class="col-md-12">
+                @*<div class="col-md-12">
                     <div class="form-group">
                         @Html.DropDownListFor(m => m.TypeId, (IEnumerable<SelectListItem>)ViewBag.SubTypes, "- Select Type -", new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.TypeId, "", new { @style = "color:red" })
                     </div>
-                </div>
+                </div>*@
 
             </div>
         </div>

@@ -36,7 +36,7 @@ namespace OriginatorAccount.Models
             return items;
         }
         public static List<SelectListItem> AccountTypeSelectListItem(this IEnumerable<tblAccountType> job)        {            List<SelectListItem> items = new List<SelectListItem>();            foreach (var c in job)            {                items.Add(new SelectListItem { Text = c.TypeName, Value = Convert.ToString(c.Id) });            }            return items;        }
-        public static List<SelectListItem> AccountSelectListItem(this IEnumerable<tblAccount> job)
+        public static List<SelectListItem> AccountSelectListItem(this IEnumerable<ORViewAccountData> job)
         {
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var c in job)
@@ -112,21 +112,20 @@ namespace OriginatorAccount.Models
             table.Id = model.Id;
             table.AccountName = model.AccountName;
             table.Description = model.Description;
-            table.Amount = model.Amount;
             table.Source = model.Source;
             return table;
         }
-        public static VMAccount ToVMAccount(this tblAccount entity)
+        public static VMAccount ToVMAccount(this ORViewAccountData entity)
         {
             VMAccount model = new VMAccount();
             model.Id = entity.Id;
             model.AccountName = entity.AccountName;
-            model.Amount = (decimal)entity.Amount;
             model.Description = entity.Description;
             model.Source = entity.Source;
+            model.Amount = entity.Amount;
             return model;
         }
-        public static List<VMAccount> ToVMAccountList(this IEnumerable<tblAccount> entityList)
+        public static List<VMAccount> ToVMAccountList(this IEnumerable<ORViewAccountData> entityList)
         {
             List<VMAccount> modellist = new List<VMAccount>();
             foreach (var entity in entityList)
@@ -188,7 +187,7 @@ namespace OriginatorAccount.Models
         #region User SubAccount
         public static tblUserSubAccount TotblUserSubAccount(this VMUserSubAccount model)        {            tblUserSubAccount entity = new tblUserSubAccount();            entity.Id = model.Id;            entity.DefaultToId = model.DefaultToId;            entity.DefaultFromId = model.DefaultFromId;            entity.ToAssociatedId = model.ToAssociatedId;            entity.FromAssociatedId = model.FromAssociatedId;            return entity;        }
         public static List<tblUserSubAccount> TotblUserSubAccountList(this IEnumerable<VMUserSubAccount> modellist)        {            List<tblUserSubAccount> entitylist = new List<tblUserSubAccount>();            foreach (var model in modellist)            {                entitylist.Add(model.TotblUserSubAccount());            }            entitylist.TrimExcess();            return entitylist;        }
-        public static VMUserSubAccount ToVMUserSubAccount(this SPGetUserAccounts_Result entity)        {            VMUserSubAccount model = new VMUserSubAccount();            model.DefaultToId = entity.DefaultTo;            model.DefaultFromId = entity.DefaultFrom;            model.ToAssociatedId = entity.ToAccoiciated.ToString();            model.FromAssociatedId = entity.FromAccoiciated.ToString();            model.AccountNumber = entity.AccountNumber;            return model;        }        public static List<VMUserSubAccount> ToVMUserSubAccountList(this IEnumerable<SPGetUserAccounts_Result> entityList)        {            List<VMUserSubAccount> modellist = new List<VMUserSubAccount>();            foreach (var entity in entityList)            {                modellist.Add(entity.ToVMUserSubAccount());            }            modellist.TrimExcess();            return modellist;        }
+        public static VMUserSubAccount ToVMUserSubAccount(this SPGetUserAccounts_Result entity)        {            VMUserSubAccount model = new VMUserSubAccount();            model.DefaultToId = entity.DefaultTo;            model.DefaultFromId = entity.DefaultFrom;            model.ToAssociatedId = entity.ToAccoiciated.ToString();            model.FromAssociatedId = entity.FromAccoiciated.ToString();            model.AccountNumber = entity.AccountNumber;            model.SubAccountName = entity.SubAccountName;            return model;        }        public static List<VMUserSubAccount> ToVMUserSubAccountList(this IEnumerable<SPGetUserAccounts_Result> entityList)        {            List<VMUserSubAccount> modellist = new List<VMUserSubAccount>();            foreach (var entity in entityList)            {                modellist.Add(entity.ToVMUserSubAccount());            }            modellist.TrimExcess();            return modellist;        }
         #endregion
 
         #region Transaction

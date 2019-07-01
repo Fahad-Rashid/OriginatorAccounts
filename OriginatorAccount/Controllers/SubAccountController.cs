@@ -46,14 +46,27 @@ namespace OriginatorAccount.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    if (SubAccount.SubAccountName == "Initial Cash")
+                    {
+                        return JavaScript("showMessage('error', 'Please Change Your Sub Account Name','bottom-right','SubAccount', 'Manage')");
+                    }
                     tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                     if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-                    tblSubAccount Table = (SubAccount).TotblSubAccount();
-                    Table.CompanyId = user.CompanyId;
-                    Table.CreatedBy = user.Id;
-                    Table.CreatedDate = DateTime.Now;
-                    new SubAccountHandler().AddSubAccount(Table);
-                    return JavaScript("showMessage('success', 'SubAccount added Successfully','bottom-right','SubAccount', 'Manage')");
+
+                    decimal? InitialCash = new SubAccountHandler().GetAmountOfInitialCashAccountOfCompany((long)user.CompanyId);
+                    if (InitialCash < SubAccount.Amount)
+                    {
+                        return JavaScript("showMessage('error', 'You dont have enough money in initial cash account','bottom-right','SubAccount', 'Manage')");
+                    }
+                    else
+                    {
+                        tblSubAccount Table = (SubAccount).TotblSubAccount();
+                        Table.CompanyId = user.CompanyId;
+                        Table.CreatedBy = user.Id;
+                        Table.CreatedDate = DateTime.Now;
+                        new SubAccountHandler().AddSubAccount(Table);
+                        return JavaScript("showMessage('success', 'SubAccount added Successfully','bottom-right','SubAccount', 'Manage')");
+                    }
                 }
                 else
                 {
@@ -72,9 +85,9 @@ namespace OriginatorAccount.Controllers
             {
                 tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                 if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-                ViewBag.Accounts = new AccountHandler().GetAccounts((long)user.CompanyId).AccountSelectListItem();
+                //ViewBag.Accounts = new AccountHandler().GetAccounts((long)user.CompanyId).AccountSelectListItem();
                 //ViewBag.Companies = new CompanyHandler().GetCompanies().CompanySelectListItem();
-                ViewBag.SubTypes = new AccountSubTypeHandler().GetAccountSubTypes((long)user.CompanyId).AccountSubTypeSelectListItem();
+                //ViewBag.SubTypes = new AccountSubTypeHandler().GetAccountSubTypes((long)user.CompanyId).AccountSubTypeSelectListItem();
                 VMSubAccount model = new SubAccountHandler().GetSubAccountById(Id, (long)user.CompanyId).ToVMSubAccount();
                 return PartialView("~/Views/SubAccount/_UpdateSubAccount.cshtml", model);
             }

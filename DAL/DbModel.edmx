@@ -201,7 +201,6 @@
           <Property Name="AccountName" Type="nvarchar(max)" />
           <Property Name="CompanyId" Type="bigint" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CreatedBy" Type="bigint" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="bigint" />
@@ -363,6 +362,21 @@
           <Property Name="FromAssociatedId" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Originator.dbo.ORViewAccountData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ORViewAccountData">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Amount" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="AccountName" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="CompanyId" Type="bigint" />
+          <Property Name="Source" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="decimal" Precision="38" Scale="2" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Originator.dbo.PMViewGetBARA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PMViewGetBARA">
           <Key>
@@ -473,6 +487,17 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserRoles" EntityType="Self.tblUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserSubAccount" EntityType="Self.tblUserSubAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ORViewAccountData" EntityType="Self.ORViewAccountData" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ORViewAccountData].[Id] AS [Id], 
+    [ORViewAccountData].[AccountName] AS [AccountName], 
+    [ORViewAccountData].[Description] AS [Description], 
+    [ORViewAccountData].[IsDeleted] AS [IsDeleted], 
+    [ORViewAccountData].[CompanyId] AS [CompanyId], 
+    [ORViewAccountData].[Source] AS [Source], 
+    [ORViewAccountData].[Amount] AS [Amount]
+    FROM [dbo].[ORViewAccountData] AS [ORViewAccountData]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="PMViewGetBARA" EntityType="Self.PMViewGetBARA" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [PMViewGetBARA].[Id] AS [Id], 
@@ -950,12 +975,13 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
             <Parameter Name="FromAccountId" Mode="In" Type="Int64" />
             <Parameter Name="ToAccountId" Mode="In" Type="Int64" />
           </FunctionImport>
-          <EntitySet Name="tblAccounts" EntityType="OriginatorModel.tblAccount" />
           <EntitySet Name="tblUserSubAccounts" EntityType="OriginatorModel.tblUserSubAccount" />
           <FunctionImport Name="SPGetUserAccounts" ReturnType="Collection(OriginatorModel.SPGetUserAccounts_Result)">
             <Parameter Name="UserId" Mode="In" Type="Int64" />
             <Parameter Name="CompanyId" Mode="In" Type="Int64" />
           </FunctionImport>
+          <EntitySet Name="tblAccounts" EntityType="OriginatorModel.tblAccount" />
+          <EntitySet Name="ORViewAccountDatas" EntityType="OriginatorModel.ORViewAccountData" />
         </EntityContainer>
         <ComplexType Name="SPMilestoneMembers_Result">
           <Property Type="Int64" Name="id" Nullable="false" />
@@ -965,24 +991,6 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
           <Property Type="String" Name="RoleName" Nullable="true" MaxLength="500" />
           <Property Type="Int32" Name="GivenPercentage" Nullable="true" />
         </ComplexType>
-        <EntityType Name="tblAccount">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CreatedBy" Type="Int64" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int64" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="DeletedBy" Type="Int64" />
-          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyId" Type="Int64" />
-        </EntityType>
         <EntityType Name="tblUserSubAccount">
           <Key>
             <PropertyRef Name="Id" />
@@ -1004,11 +1012,42 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
         </EntityType>
         <ComplexType Name="SPGetUserAccounts_Result">
           <Property Type="String" Name="AccountNumber" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="SubAccountName" Nullable="true" />
           <Property Type="Int32" Name="ToAccoiciated" Nullable="false" />
           <Property Type="Int32" Name="FromAccoiciated" Nullable="false" />
           <Property Type="Int32" Name="DefaultFrom" Nullable="false" />
           <Property Type="Int32" Name="DefaultTo" Nullable="false" />
         </ComplexType>
+        <EntityType Name="tblAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Int64" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int64" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ORViewAccountData">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Amount" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CompanyId" Type="Int64" />
+          <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="38" Scale="2" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1427,25 +1466,6 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SPTranscation" FunctionName="OriginatorModel.Store.SPTranscation" />
-          <EntitySetMapping Name="tblAccounts">
-            <EntityTypeMapping TypeName="OriginatorModel.tblAccount">
-              <MappingFragment StoreEntitySet="tblAccount">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="Source" ColumnName="Source" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblUserSubAccounts">
             <EntityTypeMapping TypeName="OriginatorModel.tblUserSubAccount">
               <MappingFragment StoreEntitySet="tblUserSubAccount">
@@ -1470,6 +1490,7 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
             <ResultMapping>
               <ComplexTypeMapping TypeName="OriginatorModel.SPGetUserAccounts_Result">
                 <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="SubAccountName" ColumnName="SubAccountName" />
                 <ScalarProperty Name="ToAccoiciated" ColumnName="ToAccoiciated" />
                 <ScalarProperty Name="FromAccoiciated" ColumnName="FromAccoiciated" />
                 <ScalarProperty Name="DefaultFrom" ColumnName="DefaultFrom" />
@@ -1477,6 +1498,37 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tblAccounts">
+            <EntityTypeMapping TypeName="OriginatorModel.tblAccount">
+              <MappingFragment StoreEntitySet="tblAccount">
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORViewAccountDatas">
+            <EntityTypeMapping TypeName="OriginatorModel.ORViewAccountData">
+              <MappingFragment StoreEntitySet="ORViewAccountData">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

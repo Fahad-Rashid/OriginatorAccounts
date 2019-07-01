@@ -9,15 +9,16 @@ namespace BLL.Account
 {
    public class AccountHandler
     {
-        public List<tblAccount> GetAccounts(long CompanyId)
+        public List<ORViewAccountData> GetAccounts(long CompanyId)
         {
             using(OriginatorEntities db = new OriginatorEntities())
             {
-                return (from data in db.tblAccounts
-                        where data.IsDeleted != true && data.CompanyId == CompanyId
+                return (from data in db.ORViewAccountDatas
+                        where data.IsDeleted != true && data.CompanyId == CompanyId && data.AccountName != "Initial Cash"
                         select data).ToList();
             }
         }
+
 
         public void AddAccount(tblAccount Account)
         {
@@ -28,11 +29,11 @@ namespace BLL.Account
             }
         }
 
-        public tblAccount GetAccountById(long Id, long CompanyId)
+        public ORViewAccountData GetAccountById(long Id, long CompanyId)
         {
             using(OriginatorEntities db = new OriginatorEntities())
             {
-                return (from data in db.tblAccounts
+                return (from data in db.ORViewAccountDatas
                         where data.Id == Id && data.CompanyId == CompanyId
                         select data).FirstOrDefault();
             }
@@ -45,7 +46,6 @@ namespace BLL.Account
                 tblAccount found = db.tblAccounts.Find(id);
                 if (!string.IsNullOrWhiteSpace(account.AccountName)) found.AccountName = account.AccountName;
                 if (!string.IsNullOrWhiteSpace(account.Description)) found.Description = account.Description;
-                if (!string.IsNullOrWhiteSpace(account.Amount.ToString())) found.Amount = account.Amount;
                 if (!string.IsNullOrWhiteSpace(account.Source.ToString())) found.Source = account.Source;
                 if (account.CompanyId != null && account.CompanyId > 0) found.CompanyId = account.CompanyId;
                 if (account.ModifiedBy != null && account.ModifiedBy > 0) found.ModifiedBy = account.ModifiedBy;

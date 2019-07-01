@@ -1,4 +1,5 @@
-﻿using BLL.Transaction;
+﻿using BLL.SubAccount;
+using BLL.Transaction;
 using DAL;
 using OriginatorAccount.Models;
 using OriginatorAccount.Models.Transaction;
@@ -33,6 +34,18 @@ namespace OriginatorAccount.Controllers
                     return JavaScript("showMessage('error', 'You Dont have any associated Accounts','bottom-right','user', 'RedirectToLogin')");
                 }
 
-            }        }        [HttpPost]        public ActionResult AddTransaction(VMTransaction VMTransaction)        {            try            {                if (ModelState.IsValid)                {                    tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;                    if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");                    tblAccountTransaction Table = (VMTransaction).TotblTransaction();                    Table.CompanyId = user.CompanyId;                    Table.CreatedBy = user.Id;                    Table.CreatedDate = DateTime.Now;                    new TransactionHandler().AddTransaction(Table);                    return JavaScript("showMessage('success', 'Transaction added Successfully','bottom-right','Transaction', 'AddTransaction')");                }                else                {                    return JavaScript("showMessage('error', 'All fields are required, Please try again','bottom-right','Transaction', 'AddTransaction')");                }            }            catch (Exception ex)            {                return JavaScript("showMessage('error', 'Failed to Add Transaction, Please Contact to Administrator','bottom-right','Transaction', 'AddTransaction')");            }        }
+            }        }        [HttpPost]        public ActionResult AddTransaction(VMTransaction VMTransaction)        {            try            {                if (ModelState.IsValid)                {                    tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;                    if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");                    decimal? AmountOfFromAccount = new SubAccountHandler().GetAmountOfSubAccount(VMTransaction.DefaultFrom);                    if(AmountOfFromAccount >= VMTransaction.Amount)
+                    {
+                        tblAccountTransaction Table = (VMTransaction).TotblTransaction();
+                        Table.CompanyId = user.CompanyId;
+                        Table.CreatedBy = user.Id;
+                        Table.CreatedDate = DateTime.Now;
+                        new TransactionHandler().AddTransaction(Table);
+                        return JavaScript("showMessage('success', 'Transaction added Successfully','bottom-right','Transaction', 'AddTransaction')");
+                    }
+                    else
+                    {
+                        return JavaScript("showMessage('error', 'You dont have enough money for this transaction','bottom-right','Transaction', 'AddTransaction')");
+                    }                                    }                else                {                    return JavaScript("showMessage('error', 'All fields are required, Please try again','bottom-right','Transaction', 'AddTransaction')");                }            }            catch (Exception ex)            {                return JavaScript("showMessage('error', 'Failed to Add Transaction, Please Contact to Administrator','bottom-right','Transaction', 'AddTransaction')");            }        }
     }
 }

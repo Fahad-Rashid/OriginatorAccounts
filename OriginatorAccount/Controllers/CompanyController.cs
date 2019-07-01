@@ -44,7 +44,7 @@ namespace OriginatorAccount.Controllers
                     tblCompany Table = (VMcompany).TotblCompany();
                     Table.CreatedBy = user.Id;
                     Table.CreatedDate = DateTime.Now;
-                    new CompanyHandler().AddUser(Table);
+                    new CompanyHandler().AddCompany(Table);
                     return JavaScript("showMessage('success', 'Company added Successfully','bottom-right','Company', 'Manage')");
                 }
                 else

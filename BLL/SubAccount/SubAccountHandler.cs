@@ -9,6 +9,26 @@ namespace BLL.SubAccount
 {
    public class SubAccountHandler
     {
+        public decimal? GetAmountOfSubAccount(string AccountNumber)
+        {
+            using(OriginatorEntities db = new OriginatorEntities())
+            {
+                return (from data in db.tblSubAccounts
+                         where data.AccountNumber == AccountNumber
+                         select data.Amount).FirstOrDefault();
+            }
+        }
+
+        public decimal? GetAmountOfInitialCashAccountOfCompany(long CompanyId)
+        {
+            using(OriginatorEntities db = new OriginatorEntities())
+            {
+                return (from data in db.tblSubAccounts
+                        where data.CompanyId == CompanyId && data.SubAccountName == "Initial Cash"
+                        select data.Amount).FirstOrDefault();
+            }
+        }
+
         public List<ViewSubAccount> GetSubAccounts(long CompanyId)
         {
             using(OriginatorEntities db = new OriginatorEntities())
@@ -34,6 +54,10 @@ namespace BLL.SubAccount
             using(OriginatorEntities db = new OriginatorEntities())
             {
                 db.tblSubAccounts.Add(subaccount);
+                var InitialCashSubAccount = (from data in db.tblSubAccounts
+                        where data.CompanyId == subaccount.CompanyId && data.SubAccountName == "Initial Cash"
+                        select data).FirstOrDefault();
+                InitialCashSubAccount.Amount = InitialCashSubAccount.Amount - subaccount.Amount;
                 db.SaveChanges();
             }
         }

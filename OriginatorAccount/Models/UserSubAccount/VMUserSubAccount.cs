@@ -9,6 +9,7 @@ namespace OriginatorAccount.Models.UserSubAccount
     {
         public long Id { get; set; }
         public string AccountNumber { get; set; }
+        public string SubAccountName { get; set; }
         public long DefaultToId { get; set; }
         public long DefaultFromId { get; set; }
         public string ToAssociatedId { get; set; }

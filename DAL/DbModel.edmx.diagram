@@ -27,8 +27,9 @@
         <EntityTypeShape EntityType="OriginatorModel.PMViewGetBARA" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OriginatorModel.ViewSubAccount" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OriginatorModel.ViewUser" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OriginatorModel.tblAccount" Width="1.5" PointX="15.375" PointY="9.75" />
         <EntityTypeShape EntityType="OriginatorModel.tblUserSubAccount" Width="1.5" PointX="13.375" PointY="14.75" />
+        <EntityTypeShape EntityType="OriginatorModel.tblAccount" Width="1.5" PointX="15.375" PointY="9.75" />
+        <EntityTypeShape EntityType="OriginatorModel.ORViewAccountData" Width="1.5" PointX="9.375" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
