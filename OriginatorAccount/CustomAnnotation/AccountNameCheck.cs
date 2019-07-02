@@ -10,9 +10,10 @@ namespace OriginatorAccount.CustomAnnotation
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+
             if (value.ToString() == "Initial Cash")
             {
-                return new ValidationResult(ErrorMessage ?? "Please Change your Account Name");
+                return new ValidationResult(ErrorMessage ?? "You cannot apply for more then two weeks");
             }
             else
             {
