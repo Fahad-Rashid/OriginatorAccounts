@@ -1,0 +1,94 @@
+﻿@using OriginatorAccount.Models.HR
+@model VMMonthlyHR
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 class="title" id="defaultModalLabel">Update Attandance</h6>
+    </div>
+
+    @using (Ajax.BeginForm("UpdateAttandance", "MonthlyHR", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "PutData", OnComplete = "CloseModal" }))
+    {
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card">
+                    <!-- <div class="header">
+                        <h2>Customer List</h2>
+                        <ul class="header-dropdown">
+                            <li><a href="javascript:void(0);" class="btn btn-info" data-toggle="modal" data-target="#addcontact">Add New</a></li>
+                        </ul>
+                    </div> -->
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover js-basic-example dataTable table-custom table-striped m-b-0 c_list">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Employee Name</th>
+                                        @for (int i = 1; i < 32; i++)
+                                        {
+                                            <th>@i</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @if (Model != null)
+                                    {
+                                        <tr>
+                                            <td style="display:none">@Model.Id</td>
+                                            <td>@Model.EmployeeName</td>
+                                            <td>@Html.CheckBoxFor(m => m.One, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Two, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Three, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Four, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Five, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Six, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Seven, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Eight, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Nine, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Ten, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Eleven, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Twelve, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Thirteen, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Fourteen, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Fifteen, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.sixteen, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Seventeen, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Eighteen, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Ninteen, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Twenty, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.TwentyOne, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.TwentyTwo, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.TwentyThree, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.TwentyFour, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.TwentyFive, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.TwentySix, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.TwentySeven, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.TwentyEight, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.TwentyNine, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.Thirty, new { @class = "checkbox-tick" })</td>
+                                            <td>@Html.CheckBoxFor(m => m.ThirtyOne, new { @class = "checkbox-tick" })</td>
+                                        </tr>
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="submit"  class="btn btn-primary">UPDATE</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+        </div>
+
+    }
+</div>
+
+
+<script type="text/javascript">
+
+</script>

@@ -19,15 +19,15 @@ namespace BLL.SubAccount
             }
         }
 
-        public decimal? GetAmountOfInitialCashAccountOfCompany(long CompanyId)
-        {
-            using(OriginatorEntities db = new OriginatorEntities())
-            {
-                return (from data in db.tblSubAccounts
-                        where data.CompanyId == CompanyId && data.SubAccountName == "Initial Cash"
-                        select data.Amount).FirstOrDefault();
-            }
-        }
+        //public decimal? GetAmountOfInitialCashAccountOfCompany(long CompanyId)
+        //{
+        //    using(OriginatorEntities db = new OriginatorEntities())
+        //    {
+        //        return (from data in db.tblSubAccounts
+        //                where data.CompanyId == CompanyId && data.SubAccountName == "Initial Cash"
+        //                select data.Amount).FirstOrDefault();
+        //    }
+        //}
 
         public List<ViewSubAccount> GetSubAccounts(long CompanyId)
         {

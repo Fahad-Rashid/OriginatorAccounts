@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="OriginatorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyId" Type="bigint" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="50" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedBy" Type="bigint" />
+          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
         <EntityType Name="PMCompanyData">
           <Key>
             <PropertyRef Name="Id" />
@@ -271,6 +289,59 @@
           <Property Name="DeletedDate" Type="datetime" />
           <Property Name="IsDeleted" Type="bit" />
         </EntityType>
+        <EntityType Name="tblMonthlyHR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Yearr" Type="nvarchar" MaxLength="50" />
+          <Property Name="Monthh" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tax" Type="float" />
+          <Property Name="EOB" Type="float" />
+          <Property Name="Misc" Type="float" />
+          <Property Name="EmployeeId" Type="bigint" />
+          <Property Name="LecturePerDay" Type="nvarchar" MaxLength="50" />
+          <Property Name="Advance" Type="float" />
+          <Property Name="1st" Type="bit" />
+          <Property Name="2nd" Type="bit" />
+          <Property Name="3rd" Type="bit" />
+          <Property Name="4th" Type="bit" />
+          <Property Name="5th" Type="bit" />
+          <Property Name="6th" Type="bit" />
+          <Property Name="7th" Type="bit" />
+          <Property Name="8th" Type="bit" />
+          <Property Name="9th" Type="bit" />
+          <Property Name="10th" Type="bit" />
+          <Property Name="11th" Type="bit" />
+          <Property Name="12th" Type="bit" />
+          <Property Name="13th" Type="bit" />
+          <Property Name="14th" Type="bit" />
+          <Property Name="15th" Type="bit" />
+          <Property Name="16th" Type="bit" />
+          <Property Name="17th" Type="bit" />
+          <Property Name="18th" Type="bit" />
+          <Property Name="19th" Type="bit" />
+          <Property Name="20th" Type="bit" />
+          <Property Name="21th" Type="bit" />
+          <Property Name="22th" Type="bit" />
+          <Property Name="23th" Type="bit" />
+          <Property Name="24th" Type="bit" />
+          <Property Name="25th" Type="bit" />
+          <Property Name="26th" Type="bit" />
+          <Property Name="27th" Type="bit" />
+          <Property Name="28th" Type="bit" />
+          <Property Name="29th" Type="bit" />
+          <Property Name="30th" Type="bit" />
+          <Property Name="31th" Type="bit" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedBy" Type="bigint" />
+          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
         <EntityType Name="tblRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -284,6 +355,16 @@
           <Property Name="DeletedBy" Type="bigint" />
           <Property Name="DeletedDate" Type="datetime" />
           <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblSalary">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Salary" Type="float" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="EmployeeId" Type="bigint" />
         </EntityType>
         <EntityType Name="tblSubAccount">
           <Key>
@@ -377,6 +458,74 @@ warning 6002: The table/view 'Originator.dbo.ORViewAccountData' does not have a 
           <Property Name="Amount" Type="decimal" Precision="38" Scale="2" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Originator.dbo.ORViewEmployeeData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ORViewEmployeeData">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Salary" Type="float" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyId" Type="bigint" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Originator.dbo.ORViewMonthlyHRData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ORViewMonthlyHRData">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="1st" Type="bit" />
+          <Property Name="2nd" Type="bit" />
+          <Property Name="3rd" Type="bit" />
+          <Property Name="4th" Type="bit" />
+          <Property Name="5th" Type="bit" />
+          <Property Name="6th" Type="bit" />
+          <Property Name="7th" Type="bit" />
+          <Property Name="8th" Type="bit" />
+          <Property Name="9th" Type="bit" />
+          <Property Name="10th" Type="bit" />
+          <Property Name="11th" Type="bit" />
+          <Property Name="12th" Type="bit" />
+          <Property Name="13th" Type="bit" />
+          <Property Name="14th" Type="bit" />
+          <Property Name="15th" Type="bit" />
+          <Property Name="16th" Type="bit" />
+          <Property Name="17th" Type="bit" />
+          <Property Name="18th" Type="bit" />
+          <Property Name="19th" Type="bit" />
+          <Property Name="20th" Type="bit" />
+          <Property Name="21th" Type="bit" />
+          <Property Name="22th" Type="bit" />
+          <Property Name="23th" Type="bit" />
+          <Property Name="24th" Type="bit" />
+          <Property Name="25th" Type="bit" />
+          <Property Name="26th" Type="bit" />
+          <Property Name="27th" Type="bit" />
+          <Property Name="28th" Type="bit" />
+          <Property Name="29th" Type="bit" />
+          <Property Name="30th" Type="bit" />
+          <Property Name="31th" Type="bit" />
+          <Property Name="Yearr" Type="nvarchar" MaxLength="50" />
+          <Property Name="Monthh" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tax" Type="float" />
+          <Property Name="EOB" Type="float" />
+          <Property Name="Misc" Type="float" />
+          <Property Name="Advance" Type="float" />
+          <Property Name="LecturePerDay" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="101" />
+          <Property Name="EmployeeId" Type="bigint" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Originator.dbo.PMViewGetBARA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PMViewGetBARA">
           <Key>
@@ -466,6 +615,7 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
           <Parameter Name="ToAccountId" Type="bigint" Mode="In" />
         </Function>
         <EntityContainer Name="OriginatorModelStoreContainer">
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PMCompanyData" EntityType="Self.PMCompanyData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PMProjectCategory" EntityType="Self.PMProjectCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PMProjectClient" EntityType="Self.PMProjectClient" Schema="dbo" store:Type="Tables" />
@@ -482,7 +632,9 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
           <EntitySet Name="tblAccountTransaction" EntityType="Self.tblAccountTransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAccountType" EntityType="Self.tblAccountType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCompany" EntityType="Self.tblCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMonthlyHR" EntityType="Self.tblMonthlyHR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSalary" EntityType="Self.tblSalary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSubAccount" EntityType="Self.tblSubAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUserRoles" EntityType="Self.tblUserRoles" Schema="dbo" store:Type="Tables" />
@@ -497,6 +649,65 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
     [ORViewAccountData].[Source] AS [Source], 
     [ORViewAccountData].[Amount] AS [Amount]
     FROM [dbo].[ORViewAccountData] AS [ORViewAccountData]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ORViewEmployeeData" EntityType="Self.ORViewEmployeeData" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ORViewEmployeeData].[ID] AS [ID], 
+    [ORViewEmployeeData].[FirstName] AS [FirstName], 
+    [ORViewEmployeeData].[LastName] AS [LastName], 
+    [ORViewEmployeeData].[Salary] AS [Salary], 
+    [ORViewEmployeeData].[IsDeleted] AS [IsDeleted], 
+    [ORViewEmployeeData].[Designation] AS [Designation], 
+    [ORViewEmployeeData].[CompanyId] AS [CompanyId], 
+    [ORViewEmployeeData].[CreatedDate] AS [CreatedDate]
+    FROM [dbo].[ORViewEmployeeData] AS [ORViewEmployeeData]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ORViewMonthlyHRData" EntityType="Self.ORViewMonthlyHRData" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ORViewMonthlyHRData].[ID] AS [ID], 
+    [ORViewMonthlyHRData].[1st] AS [1st], 
+    [ORViewMonthlyHRData].[2nd] AS [2nd], 
+    [ORViewMonthlyHRData].[3rd] AS [3rd], 
+    [ORViewMonthlyHRData].[4th] AS [4th], 
+    [ORViewMonthlyHRData].[5th] AS [5th], 
+    [ORViewMonthlyHRData].[6th] AS [6th], 
+    [ORViewMonthlyHRData].[7th] AS [7th], 
+    [ORViewMonthlyHRData].[8th] AS [8th], 
+    [ORViewMonthlyHRData].[9th] AS [9th], 
+    [ORViewMonthlyHRData].[10th] AS [10th], 
+    [ORViewMonthlyHRData].[11th] AS [11th], 
+    [ORViewMonthlyHRData].[12th] AS [12th], 
+    [ORViewMonthlyHRData].[13th] AS [13th], 
+    [ORViewMonthlyHRData].[14th] AS [14th], 
+    [ORViewMonthlyHRData].[15th] AS [15th], 
+    [ORViewMonthlyHRData].[16th] AS [16th], 
+    [ORViewMonthlyHRData].[17th] AS [17th], 
+    [ORViewMonthlyHRData].[18th] AS [18th], 
+    [ORViewMonthlyHRData].[19th] AS [19th], 
+    [ORViewMonthlyHRData].[20th] AS [20th], 
+    [ORViewMonthlyHRData].[21th] AS [21th], 
+    [ORViewMonthlyHRData].[22th] AS [22th], 
+    [ORViewMonthlyHRData].[23th] AS [23th], 
+    [ORViewMonthlyHRData].[24th] AS [24th], 
+    [ORViewMonthlyHRData].[25th] AS [25th], 
+    [ORViewMonthlyHRData].[26th] AS [26th], 
+    [ORViewMonthlyHRData].[27th] AS [27th], 
+    [ORViewMonthlyHRData].[28th] AS [28th], 
+    [ORViewMonthlyHRData].[29th] AS [29th], 
+    [ORViewMonthlyHRData].[30th] AS [30th], 
+    [ORViewMonthlyHRData].[31th] AS [31th], 
+    [ORViewMonthlyHRData].[Yearr] AS [Yearr], 
+    [ORViewMonthlyHRData].[Monthh] AS [Monthh], 
+    [ORViewMonthlyHRData].[Description] AS [Description], 
+    [ORViewMonthlyHRData].[Tax] AS [Tax], 
+    [ORViewMonthlyHRData].[EOB] AS [EOB], 
+    [ORViewMonthlyHRData].[Misc] AS [Misc], 
+    [ORViewMonthlyHRData].[Advance] AS [Advance], 
+    [ORViewMonthlyHRData].[LecturePerDay] AS [LecturePerDay], 
+    [ORViewMonthlyHRData].[EmployeeName] AS [EmployeeName], 
+    [ORViewMonthlyHRData].[EmployeeId] AS [EmployeeId], 
+    [ORViewMonthlyHRData].[IsDeleted] AS [IsDeleted]
+    FROM [dbo].[ORViewMonthlyHRData] AS [ORViewMonthlyHRData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="PMViewGetBARA" EntityType="Self.PMViewGetBARA" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -982,6 +1193,11 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
           </FunctionImport>
           <EntitySet Name="tblAccounts" EntityType="OriginatorModel.tblAccount" />
           <EntitySet Name="ORViewAccountDatas" EntityType="OriginatorModel.ORViewAccountData" />
+          <EntitySet Name="Employees" EntityType="OriginatorModel.Employee" />
+          <EntitySet Name="tblSalaries" EntityType="OriginatorModel.tblSalary" />
+          <EntitySet Name="ORViewEmployeeDatas" EntityType="OriginatorModel.ORViewEmployeeData" />
+          <EntitySet Name="tblMonthlyHRs" EntityType="OriginatorModel.tblMonthlyHR" />
+          <EntitySet Name="ORViewMonthlyHRDatas" EntityType="OriginatorModel.ORViewMonthlyHRData" />
         </EntityContainer>
         <ComplexType Name="SPMilestoneMembers_Result">
           <Property Type="Int64" Name="id" Nullable="false" />
@@ -1047,6 +1263,151 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
           <Property Name="CompanyId" Type="Int64" />
           <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Amount" Type="Decimal" Nullable="false" Precision="38" Scale="2" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int64" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CompanyId" Type="Int64" />
+          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblSalary">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Salary" Type="Double" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="EmployeeId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="ORViewEmployeeData">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Salary" Type="Double" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblMonthlyHR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tax" Type="Double" />
+          <Property Name="EOB" Type="Double" />
+          <Property Name="Misc" Type="Double" />
+          <Property Name="EmployeeId" Type="Int64" />
+          <Property Name="LecturePerDay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Advance" Type="Double" />
+          <Property Name="C1st" Type="Boolean" />
+          <Property Name="C2nd" Type="Boolean" />
+          <Property Name="C3rd" Type="Boolean" />
+          <Property Name="C4th" Type="Boolean" />
+          <Property Name="C5th" Type="Boolean" />
+          <Property Name="C6th" Type="Boolean" />
+          <Property Name="C7th" Type="Boolean" />
+          <Property Name="C8th" Type="Boolean" />
+          <Property Name="C9th" Type="Boolean" />
+          <Property Name="C10th" Type="Boolean" />
+          <Property Name="C11th" Type="Boolean" />
+          <Property Name="C12th" Type="Boolean" />
+          <Property Name="C13th" Type="Boolean" />
+          <Property Name="C14th" Type="Boolean" />
+          <Property Name="C15th" Type="Boolean" />
+          <Property Name="C16th" Type="Boolean" />
+          <Property Name="C17th" Type="Boolean" />
+          <Property Name="C18th" Type="Boolean" />
+          <Property Name="C19th" Type="Boolean" />
+          <Property Name="C20th" Type="Boolean" />
+          <Property Name="C21th" Type="Boolean" />
+          <Property Name="C22th" Type="Boolean" />
+          <Property Name="C23th" Type="Boolean" />
+          <Property Name="C24th" Type="Boolean" />
+          <Property Name="C25th" Type="Boolean" />
+          <Property Name="C26th" Type="Boolean" />
+          <Property Name="C27th" Type="Boolean" />
+          <Property Name="C28th" Type="Boolean" />
+          <Property Name="C29th" Type="Boolean" />
+          <Property Name="C30th" Type="Boolean" />
+          <Property Name="C31th" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int64" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Yearr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Monthh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ORViewMonthlyHRData">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="C1st" Type="Boolean" />
+          <Property Name="C2nd" Type="Boolean" />
+          <Property Name="C3rd" Type="Boolean" />
+          <Property Name="C4th" Type="Boolean" />
+          <Property Name="C5th" Type="Boolean" />
+          <Property Name="C6th" Type="Boolean" />
+          <Property Name="C7th" Type="Boolean" />
+          <Property Name="C8th" Type="Boolean" />
+          <Property Name="C9th" Type="Boolean" />
+          <Property Name="C10th" Type="Boolean" />
+          <Property Name="C11th" Type="Boolean" />
+          <Property Name="C12th" Type="Boolean" />
+          <Property Name="C13th" Type="Boolean" />
+          <Property Name="C14th" Type="Boolean" />
+          <Property Name="C15th" Type="Boolean" />
+          <Property Name="C16th" Type="Boolean" />
+          <Property Name="C17th" Type="Boolean" />
+          <Property Name="C18th" Type="Boolean" />
+          <Property Name="C19th" Type="Boolean" />
+          <Property Name="C20th" Type="Boolean" />
+          <Property Name="C21th" Type="Boolean" />
+          <Property Name="C22th" Type="Boolean" />
+          <Property Name="C23th" Type="Boolean" />
+          <Property Name="C24th" Type="Boolean" />
+          <Property Name="C25th" Type="Boolean" />
+          <Property Name="C26th" Type="Boolean" />
+          <Property Name="C27th" Type="Boolean" />
+          <Property Name="C28th" Type="Boolean" />
+          <Property Name="C29th" Type="Boolean" />
+          <Property Name="C30th" Type="Boolean" />
+          <Property Name="C31th" Type="Boolean" />
+          <Property Name="Yearr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Monthh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tax" Type="Double" />
+          <Property Name="EOB" Type="Double" />
+          <Property Name="Misc" Type="Double" />
+          <Property Name="Advance" Type="Double" />
+          <Property Name="LecturePerDay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeName" Type="String" MaxLength="101" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeId" Type="Int64" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1526,6 +1887,153 @@ warning 6002: The table/view 'Originator.dbo.ViewUser' does not have a primary k
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="AccountName" ColumnName="AccountName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="OriginatorModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSalaries">
+            <EntityTypeMapping TypeName="OriginatorModel.tblSalary">
+              <MappingFragment StoreEntitySet="tblSalary">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORViewEmployeeDatas">
+            <EntityTypeMapping TypeName="OriginatorModel.ORViewEmployeeData">
+              <MappingFragment StoreEntitySet="ORViewEmployeeData">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMonthlyHRs">
+            <EntityTypeMapping TypeName="OriginatorModel.tblMonthlyHR">
+              <MappingFragment StoreEntitySet="tblMonthlyHR">
+                <ScalarProperty Name="Monthh" ColumnName="Monthh" />
+                <ScalarProperty Name="Yearr" ColumnName="Yearr" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="C31th" ColumnName="31th" />
+                <ScalarProperty Name="C30th" ColumnName="30th" />
+                <ScalarProperty Name="C29th" ColumnName="29th" />
+                <ScalarProperty Name="C28th" ColumnName="28th" />
+                <ScalarProperty Name="C27th" ColumnName="27th" />
+                <ScalarProperty Name="C26th" ColumnName="26th" />
+                <ScalarProperty Name="C25th" ColumnName="25th" />
+                <ScalarProperty Name="C24th" ColumnName="24th" />
+                <ScalarProperty Name="C23th" ColumnName="23th" />
+                <ScalarProperty Name="C22th" ColumnName="22th" />
+                <ScalarProperty Name="C21th" ColumnName="21th" />
+                <ScalarProperty Name="C20th" ColumnName="20th" />
+                <ScalarProperty Name="C19th" ColumnName="19th" />
+                <ScalarProperty Name="C18th" ColumnName="18th" />
+                <ScalarProperty Name="C17th" ColumnName="17th" />
+                <ScalarProperty Name="C16th" ColumnName="16th" />
+                <ScalarProperty Name="C15th" ColumnName="15th" />
+                <ScalarProperty Name="C14th" ColumnName="14th" />
+                <ScalarProperty Name="C13th" ColumnName="13th" />
+                <ScalarProperty Name="C12th" ColumnName="12th" />
+                <ScalarProperty Name="C11th" ColumnName="11th" />
+                <ScalarProperty Name="C10th" ColumnName="10th" />
+                <ScalarProperty Name="C9th" ColumnName="9th" />
+                <ScalarProperty Name="C8th" ColumnName="8th" />
+                <ScalarProperty Name="C7th" ColumnName="7th" />
+                <ScalarProperty Name="C6th" ColumnName="6th" />
+                <ScalarProperty Name="C5th" ColumnName="5th" />
+                <ScalarProperty Name="C4th" ColumnName="4th" />
+                <ScalarProperty Name="C3rd" ColumnName="3rd" />
+                <ScalarProperty Name="C2nd" ColumnName="2nd" />
+                <ScalarProperty Name="C1st" ColumnName="1st" />
+                <ScalarProperty Name="Advance" ColumnName="Advance" />
+                <ScalarProperty Name="LecturePerDay" ColumnName="LecturePerDay" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Misc" ColumnName="Misc" />
+                <ScalarProperty Name="EOB" ColumnName="EOB" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORViewMonthlyHRDatas">
+            <EntityTypeMapping TypeName="OriginatorModel.ORViewMonthlyHRData">
+              <MappingFragment StoreEntitySet="ORViewMonthlyHRData">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="LecturePerDay" ColumnName="LecturePerDay" />
+                <ScalarProperty Name="Advance" ColumnName="Advance" />
+                <ScalarProperty Name="Misc" ColumnName="Misc" />
+                <ScalarProperty Name="EOB" ColumnName="EOB" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Monthh" ColumnName="Monthh" />
+                <ScalarProperty Name="Yearr" ColumnName="Yearr" />
+                <ScalarProperty Name="C31th" ColumnName="31th" />
+                <ScalarProperty Name="C30th" ColumnName="30th" />
+                <ScalarProperty Name="C29th" ColumnName="29th" />
+                <ScalarProperty Name="C28th" ColumnName="28th" />
+                <ScalarProperty Name="C27th" ColumnName="27th" />
+                <ScalarProperty Name="C26th" ColumnName="26th" />
+                <ScalarProperty Name="C25th" ColumnName="25th" />
+                <ScalarProperty Name="C24th" ColumnName="24th" />
+                <ScalarProperty Name="C23th" ColumnName="23th" />
+                <ScalarProperty Name="C22th" ColumnName="22th" />
+                <ScalarProperty Name="C21th" ColumnName="21th" />
+                <ScalarProperty Name="C20th" ColumnName="20th" />
+                <ScalarProperty Name="C19th" ColumnName="19th" />
+                <ScalarProperty Name="C18th" ColumnName="18th" />
+                <ScalarProperty Name="C17th" ColumnName="17th" />
+                <ScalarProperty Name="C16th" ColumnName="16th" />
+                <ScalarProperty Name="C15th" ColumnName="15th" />
+                <ScalarProperty Name="C14th" ColumnName="14th" />
+                <ScalarProperty Name="C13th" ColumnName="13th" />
+                <ScalarProperty Name="C12th" ColumnName="12th" />
+                <ScalarProperty Name="C11th" ColumnName="11th" />
+                <ScalarProperty Name="C10th" ColumnName="10th" />
+                <ScalarProperty Name="C9th" ColumnName="9th" />
+                <ScalarProperty Name="C8th" ColumnName="8th" />
+                <ScalarProperty Name="C7th" ColumnName="7th" />
+                <ScalarProperty Name="C6th" ColumnName="6th" />
+                <ScalarProperty Name="C5th" ColumnName="5th" />
+                <ScalarProperty Name="C4th" ColumnName="4th" />
+                <ScalarProperty Name="C3rd" ColumnName="3rd" />
+                <ScalarProperty Name="C2nd" ColumnName="2nd" />
+                <ScalarProperty Name="C1st" ColumnName="1st" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

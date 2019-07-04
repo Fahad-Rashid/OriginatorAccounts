@@ -51,8 +51,11 @@
     <Compile Include="AccountSubType\AccountSubTypeHandler.cs" />
     <Compile Include="Account\AccountHandler.cs" />
     <Compile Include="Company\CompanyHandler.cs" />
+    <Compile Include="Employee\EmployeeHandler.cs" />
+    <Compile Include="MonthlyHR\MonthlyHRHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role\RoleHandler.cs" />
+    <Compile Include="Salary\SalaryHandler.cs" />
     <Compile Include="SubAccount\SubAccountHandler.cs" />
     <Compile Include="Transaction\TransactionHandler.cs" />
     <Compile Include="UserSubAccount\UserSubAccountHandler.cs" />

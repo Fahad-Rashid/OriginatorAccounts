@@ -2,6 +2,8 @@
 using OriginatorAccount.Models.Account;
 using OriginatorAccount.Models.AccountSubType;
 using OriginatorAccount.Models.Company;
+using OriginatorAccount.Models.Employee;
+using OriginatorAccount.Models.HR;
 using OriginatorAccount.Models.SubAccount;
 using OriginatorAccount.Models.Transaction;
 using OriginatorAccount.Models.User;
@@ -122,7 +124,6 @@ namespace OriginatorAccount.Models
             model.AccountName = entity.AccountName;
             model.Description = entity.Description;
             model.Source = entity.Source;
-            model.Amount = entity.Amount;
             return model;
         }
         public static List<VMAccount> ToVMAccountList(this IEnumerable<ORViewAccountData> entityList)
@@ -211,5 +212,109 @@ namespace OriginatorAccount.Models
         }
         #endregion
 
+        #region Employee
+        public static VMEmployee ToVMEmployee(this ORViewEmployeeData entity)
+        {
+            VMEmployee model = new VMEmployee();
+            model.Id = entity.ID;
+            model.FirstName = entity.FirstName;
+            model.LastName = entity.LastName;
+            model.Salary = (float)entity.Salary;
+            model.Designation = entity.Designation;
+            return model;
+        }
+        public static List<VMEmployee> ToVMEmployeeList(this IEnumerable<ORViewEmployeeData> entitylist)        {            List<VMEmployee> modellist = new List<VMEmployee>();            foreach (var entity in entitylist)            {                modellist.Add(entity.ToVMEmployee());            }            modellist.TrimExcess();            return modellist;        }
+        #endregion
+
+        #region MonthlyHR
+        public static VMMonthlyHR ToVMMonthlyHR(this ORViewMonthlyHRData entity)
+        {
+            VMMonthlyHR model = new VMMonthlyHR();
+            model.Id = entity.ID;
+            model.EmployeeName = entity.EmployeeName;
+            model.Year = entity.Yearr;
+            model.Month = entity.Monthh;
+            model.Description = entity.Description;
+            model.Tax = (float)entity.Tax;
+            model.EOB = (float)entity.EOB;
+            model.Misc = (float)entity.Misc;
+            model.Advance = (float)entity.Advance;
+            model.EmployeeId = (long)entity.EmployeeId;
+            model.LecturePerDay = entity.LecturePerDay;
+            model.One = (bool)entity.C1st;
+            model.Two = (bool)entity.C2nd;
+            model.Three = (bool)entity.C3rd;
+            model.Four = (bool)entity.C4th;
+            model.Five = (bool)entity.C5th;
+            model.Six = (bool)entity.C6th;
+            model.Seven = (bool)entity.C7th;
+            model.Eight = (bool)entity.C8th;
+            model.Nine = (bool)entity.C9th;
+            model.Ten = (bool)entity.C10th;
+            model.Eleven = (bool)entity.C11th;
+            model.Twelve = (bool)entity.C12th;
+            model.Thirteen = (bool)entity.C13th;
+            model.Fourteen = (bool)entity.C14th;
+            model.Fifteen = (bool)entity.C15th;
+            model.sixteen = (bool)entity.C16th;
+            model.Seventeen = (bool)entity.C17th;
+            model.Eighteen = (bool)entity.C18th;
+            model.Ninteen = (bool)entity.C19th;
+            model.Twenty = (bool)entity.C20th;
+            model.TwentyOne = (bool)entity.C21th;
+            model.TwentyTwo = (bool)entity.C22th;
+            model.TwentyThree = (bool)entity.C23th;
+            model.TwentyFour = (bool)entity.C24th;
+            model.TwentyFive = (bool)entity.C25th;
+            model.TwentySix = (bool)entity.C26th;
+            model.TwentySeven = (bool)entity.C27th;
+            model.TwentyEight = (bool)entity.C28th;
+            model.TwentyNine = (bool)entity.C29th;
+            model.Thirty = (bool)entity.C30th;
+            model.ThirtyOne = (bool)entity.C31th;
+            return model;
+        }
+        public static List<VMMonthlyHR> ToVMMonthlyHRList(this IEnumerable<ORViewMonthlyHRData> entitylist)        {            List<VMMonthlyHR> modellist = new List<VMMonthlyHR>();            foreach (var entity in entitylist)            {                modellist.Add(entity.ToVMMonthlyHR());            }            modellist.TrimExcess();            return modellist;        }
+
+        public static DAL.tblMonthlyHR TotblMonthlyHRAttandance(this VMMonthlyHR model)
+        {
+            tblMonthlyHR entity = new tblMonthlyHR();
+            entity.ID = entity.ID;
+            entity.C1st = model.One;
+            entity.C2nd = model.Two;
+            entity.C3rd = model.Three;
+            entity.C4th = model.Four;
+            entity.C5th = model.Five;
+            entity.C6th = model.Six;
+            entity.C7th = model.Seven;
+            entity.C8th = model.Eight;
+            entity.C9th = model.Nine;
+            entity.C10th = model.Ten;
+            entity.C11th = model.Eleven;
+            entity.C12th = model.Twelve;
+            entity.C13th = model.Thirteen;
+            entity.C14th = model.Fourteen;
+            entity.C15th = model.Fifteen;
+            entity.C16th = model.sixteen;
+            entity.C17th = model.Seventeen;
+            entity.C18th = model.Eighteen;
+            entity.C19th = model.Ninteen;
+            entity.C20th = model.Twenty;
+            entity.C21th = model.TwentyOne;
+            entity.C22th = model.TwentyTwo;
+            entity.C23th = model.TwentyThree;
+            entity.C24th = model.TwentyFour;
+            entity.C25th = model.TwentyFive;
+            entity.C26th = model.TwentySix;
+            entity.C27th = model.TwentySeven;
+            entity.C28th = model.TwentyEight;
+            entity.C29th = model.TwentyNine;
+            entity.C30th = model.Thirty;
+            entity.C31th = model.ThirtyOne;
+            return entity;
+        }
+
+
+        #endregion
     }
 }

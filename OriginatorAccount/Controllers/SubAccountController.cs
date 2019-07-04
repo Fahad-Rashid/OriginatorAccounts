@@ -53,20 +53,20 @@ namespace OriginatorAccount.Controllers
                     tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
                     if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
 
-                    decimal? InitialCash = new SubAccountHandler().GetAmountOfInitialCashAccountOfCompany((long)user.CompanyId);
-                    if (InitialCash < SubAccount.Amount)
-                    {
-                        return JavaScript("showMessage('error', 'You dont have enough money in initial cash account','bottom-right','SubAccount', 'Manage')");
-                    }
-                    else
-                    {
+                    //decimal? InitialCash = new SubAccountHandler().GetAmountOfInitialCashAccountOfCompany((long)user.CompanyId);
+                    //if (InitialCash < SubAccount.Amount)
+                    //{
+                    //    return JavaScript("showMessage('error', 'You dont have enough money in initial cash account','bottom-right','SubAccount', 'Manage')");
+                    //}
+                    //else
+                    //{
                         tblSubAccount Table = (SubAccount).TotblSubAccount();
                         Table.CompanyId = user.CompanyId;
                         Table.CreatedBy = user.Id;
                         Table.CreatedDate = DateTime.Now;
                         new SubAccountHandler().AddSubAccount(Table);
                         return JavaScript("showMessage('success', 'SubAccount added Successfully','bottom-right','SubAccount', 'Manage')");
-                    }
+                    //}
                 }
                 else
                 {

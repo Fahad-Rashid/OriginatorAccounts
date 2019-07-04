@@ -44,15 +44,33 @@ namespace OriginatorAccount.Controllers
                     {
                         return JavaScript("showMessage('error', 'Please Change Your Account Name','bottom-right','Account', 'Manage')");
                     }
+                    bool flag = false;
+                    List<string> NamesOfAccounts = new AccountHandler().GetAllAccountNames();
+                    foreach (var item in NamesOfAccounts)
+                    {
+                        if(Account.AccountName == item)
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
 
-                    tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
-                    if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
-                    tblAccount Table = (Account).TotblAccount();
-                    Table.CompanyId = user.CompanyId;
-                    Table.CreatedBy = user.Id;
-                    Table.CreatedDate = DateTime.Now;
-                    new AccountHandler().AddAccount(Table);
-                    return JavaScript("showMessage('success', 'Account added Successfully','bottom-right','Account', 'Manage')");
+                    if(flag == true)
+                    {
+                        return JavaScript("showMessage('error', 'Account name already exist','bottom-right','Account', 'Manage')");
+                    }
+                    else
+                    {
+                        tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;
+                        if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");
+                        tblAccount Table = (Account).TotblAccount();
+                        Table.CompanyId = user.CompanyId;
+                        Table.CreatedBy = user.Id;
+                        Table.CreatedDate = DateTime.Now;
+                        new AccountHandler().AddAccount(Table);
+                        return JavaScript("showMessage('success', 'Account added Successfully','bottom-right','Account', 'Manage')");
+                    }
+                    
                 }
                 else
                 {

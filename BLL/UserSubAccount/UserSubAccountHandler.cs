@@ -14,6 +14,7 @@ namespace BLL.UserSubAccount
             using(OriginatorEntities db = new OriginatorEntities())
             {
                 return (from data in db.SPGetUserAccounts(Id, CompanyId)
+                        where data.SubAccountName != "Initial Cash"
                         select data).ToList();
             }
         }

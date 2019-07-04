@@ -319,7 +319,6 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Fakes Include="Fakes\Microsoft.ReportViewer.ProcessingObjectModel.fakes" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -342,7 +341,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountSubTypeController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HostController.cs" />
+    <Compile Include="Controllers\MonthlyHRController.cs" />
     <Compile Include="Controllers\SubAccountController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\UserAccountsController.cs" />
@@ -355,6 +356,8 @@
     <Compile Include="Models\Account\VMAccount.cs" />
     <Compile Include="Models\Company\VMCompany.cs" />
     <Compile Include="Models\DDLViewModel.cs" />
+    <Compile Include="Models\Employee\VMEmployee.cs" />
+    <Compile Include="Models\HR\VMMonthlyHR.cs" />
     <Compile Include="Models\ModelHelper.cs" />
     <Compile Include="Models\SubAccount\VMSubAccount.cs" />
     <Compile Include="Models\Transaction\VMTransaction.cs" />
@@ -402,6 +405,11 @@
     <Content Include="Views\UserAccounts\_Manage.cshtml" />
     <Content Include="Views\Transaction\_AddTransaction.cshtml" />
     <Content Include="Views\Shared\_DDLView.cshtml" />
+    <Content Include="Views\Employee\_Manage.cshtml" />
+    <Content Include="Views\Employee\_AddEmployee.cshtml" />
+    <Content Include="Views\Employee\_UpdateEmployee.cshtml" />
+    <Content Include="Views\MonthlyHR\_Manage.cshtml" />
+    <Content Include="Views\MonthlyHR\_UpdateAttandance.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -411,6 +419,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DataImages\Employee\" />
     <Folder Include="DataImages\User\" />
   </ItemGroup>
   <ItemGroup>

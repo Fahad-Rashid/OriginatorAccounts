@@ -291,52 +291,73 @@
                 @if (user.RoleId == 1) //Admin
                 {
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#hr_menu">Admin</a></li>
-                    </ul>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#hr_menu">Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#hrr_menu">HR</a></li>
+
+                </ul>
 
                     <!-- Tab panes -->
-                    <div class="tab-content p-l-0 p-r-0">
-                        <div class="tab-pane animated fadeIn active" id="hr_menu">
-                            <nav class="sidebar-nav">
-                                <ul class="main-menu metismenu">
+                <div class="tab-content p-l-0 p-r-0">
+                    <div class="tab-pane animated fadeIn active" id="hr_menu">
+                        <nav class="sidebar-nav">
+                            <ul class="main-menu metismenu">
 
-                                    <li>
-                                        <a href="#Employees" class="has-arrow"><i class="icon-users"></i><span>Transaction</span></a>
-                                        <ul>
-                                            <li><a href="/skill/manage" id="ManageTransaction"><i class="icon-badge"></i>Manage Transaction</a></li>
+                                <li>
+                                    <a href="#Employees" class="has-arrow"><i class="icon-users"></i><span>Transaction</span></a>
+                                    <ul>
+                                        <li><a href="/skill/manage" id="ManageTransaction"><i class="icon-badge"></i>Manage Transaction</a></li>
 
-                                        </ul>
+                                    </ul>
 
-                                    </li>
+                                </li>
 
-                                    <li>
-                                        <a href="#Employees" class="has-arrow"><i class="icon-users"></i><span>Accounts</span></a>
-                                        <ul>
-                                            <li><a href="/account/manage" id="ManageAccount"><i class="icon-user"></i>Manage Account</a></li>
-                                            <li><a href="/account/manage" id="ManageSubAccount"><i class="icon-user"></i>Manage SubAccount</a></li>
-                                            <li><a href="/skill/manage" id="ManageAccountSubType"><i class="icon-badge"></i>Manage Account Types</a></li>
-                                        </ul>
+                                <li>
+                                    <a href="#Employees" class="has-arrow"><i class="icon-users"></i><span>Accounts</span></a>
+                                    <ul>
+                                        <li><a href="/account/manage" id="ManageAccount"><i class="icon-user"></i>Manage Account</a></li>
+                                        <li><a href="/account/manage" id="ManageSubAccount"><i class="icon-user"></i>Manage SubAccount</a></li>
+                                        <li><a href="/skill/manage" id="ManageAccountSubType"><i class="icon-badge"></i>Manage Account Types</a></li>
+                                    </ul>
 
-                                    </li>
+                                </li>
 
-                                    <li>
-                                        <a href="#Employees" class="has-arrow"><i class="icon-users"></i><span>Security</span></a>
-                                        <ul>
-                                            <li><a href="/gang/gang" id="ManageUser"><i class="icon-globe"></i>Manage User</a></li>
-                                            <li><a href="/skill/manage" id="ManageUserSubAccounts"><i class="icon-badge"></i>User Account privileges</a></li>
+                                <li>
+                                    <a href="#Employees" class="has-arrow"><i class="icon-users"></i><span>Security</span></a>
+                                    <ul>
+                                        <li><a href="/gang/gang" id="ManageUser"><i class="icon-globe"></i>Manage User</a></li>
+                                        <li><a href="/skill/manage" id="ManageUserSubAccounts"><i class="icon-badge"></i>User Account privileges</a></li>
 
-                                        </ul>
+                                    </ul>
 
-                                    </li>
+                                </li>
 
 
 
-                                </ul>
-                            </nav>
-                        </div>
-
+                            </ul>
+                        </nav>
                     </div>
+                    <div class="tab-pane animated fadeIn" id="hrr_menu">
+                        <nav class="sidebar-nav">
+                            <ul class="main-menu metismenu">
+
+                                <li>
+                                    <a href="#Employees" class="has-arrow"><i class="icon-users"></i><span>Employee</span></a>
+                                    <ul>
+                                        <li><a href="/skill/manage" id="ManageEmployee"><i class="icon-badge"></i>Manage Employee</a></li>
+                                        <li><a href="/skill/manage" id="ManageMonthlyHR"><i class="icon-badge"></i>Manage Monthly HR</a></li>
+
+                                    </ul>
+
+                                </li>
+
+
+
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
                 }
                 else if (user.RoleId == 2) //Gang Admin
                 {
@@ -706,6 +727,27 @@
                 $("#PutData").html(result);
             });
         });
+        $("#ManageEmployee").click(function (event) {
+            event.preventDefault();
+            $(".loaderjif").show();
+            $.ajax({
+                url: "/Employee/Manage"
+            }).done(function (result) {
+                $(".loaderjif").hide();
+                $("#PutData").html(result);
+            });
+        });
+        $("#ManageMonthlyHR").click(function (event) {
+            event.preventDefault();
+            $(".loaderjif").show();
+            $.ajax({
+                url: "/MonthlyHR/Manage"
+            }).done(function (result) {
+                $(".loaderjif").hide();
+                $("#PutData").html(result);
+            });
+        });
+        
         
 
         function showMessage(type, message, position, ControllerName, ActionName) {

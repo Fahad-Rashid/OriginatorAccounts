@@ -9,6 +9,16 @@ namespace BLL.Account
 {
    public class AccountHandler
     {
+        public List<string> GetAllAccountNames()
+        {
+            using(OriginatorEntities db = new OriginatorEntities())
+            {
+                return (from data in db.tblAccounts
+                        select data.AccountName).ToList();
+            }
+        }
+
+
         public List<ORViewAccountData> GetAccounts(long CompanyId)
         {
             using(OriginatorEntities db = new OriginatorEntities())

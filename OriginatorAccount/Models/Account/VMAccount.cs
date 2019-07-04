@@ -11,9 +11,9 @@ namespace OriginatorAccount.Models.Account
     public class VMAccount
     {
         public long Id { get; set; }
+        [Required]
         public string AccountName { get; set; }
         public string Description { get; set; }
-        public decimal Amount { get; set; }
         public string Source { get; set; }
 
 

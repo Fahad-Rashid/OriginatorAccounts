@@ -52,6 +52,11 @@ namespace DAL
         public virtual DbSet<tblUserSubAccount> tblUserSubAccounts { get; set; }
         public virtual DbSet<tblAccount> tblAccounts { get; set; }
         public virtual DbSet<ORViewAccountData> ORViewAccountDatas { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<tblSalary> tblSalaries { get; set; }
+        public virtual DbSet<ORViewEmployeeData> ORViewEmployeeDatas { get; set; }
+        public virtual DbSet<tblMonthlyHR> tblMonthlyHRs { get; set; }
+        public virtual DbSet<ORViewMonthlyHRData> ORViewMonthlyHRDatas { get; set; }
     
         public virtual int PMSPCalculateProjectsAmount()
         {

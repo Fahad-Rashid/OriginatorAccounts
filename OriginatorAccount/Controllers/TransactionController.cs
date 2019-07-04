@@ -34,7 +34,14 @@ namespace OriginatorAccount.Controllers
                     return JavaScript("showMessage('error', 'You Dont have any associated Accounts','bottom-right','user', 'RedirectToLogin')");
                 }
 
-            }        }        [HttpPost]        public ActionResult AddTransaction(VMTransaction VMTransaction)        {            try            {                if (ModelState.IsValid)                {                    tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;                    if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");                    decimal? AmountOfFromAccount = new SubAccountHandler().GetAmountOfSubAccount(VMTransaction.DefaultFrom);                    if(AmountOfFromAccount >= VMTransaction.Amount)
+            }        }        [HttpPost]        public ActionResult AddTransaction(VMTransaction VMTransaction)        {            try            {                if (ModelState.IsValid)                {                    tblUser user = Session[WebUtil.CURRENT_USER] as tblUser;                    if (!(user != null)) return RedirectToAction("RedirectToLogin", "user");                    if(VMTransaction.DefaultTo == VMTransaction.DefaultFrom)
+                    {
+                        return JavaScript("showMessage('error', 'Transaction Couldn't be performed with same accounts','bottom-right','Transaction', 'AddTransaction')");
+                    }
+                    else if(VMTransaction.Amount == 0)
+                    {
+                        return JavaScript("showMessage('error', 'Transaction amount couldn't be zero','bottom-right','Transaction', 'AddTransaction')");
+                    }                    decimal? AmountOfFromAccount = new SubAccountHandler().GetAmountOfSubAccount(VMTransaction.DefaultFrom);                    if(AmountOfFromAccount >= VMTransaction.Amount)
                     {
                         tblAccountTransaction Table = (VMTransaction).TotblTransaction();
                         Table.CompanyId = user.CompanyId;
